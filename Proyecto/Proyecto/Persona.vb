@@ -57,6 +57,7 @@
             _genero = value
         End Set
     End Property
+    Private _cedulaIdentidad As String
 
     Public Property CedulaIdentidad As String
         Get
@@ -67,7 +68,6 @@
         End Set
     End Property
 
-    Private _cedulaIdentidad As String
 
 
 
