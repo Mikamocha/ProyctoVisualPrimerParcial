@@ -29,4 +29,48 @@
             _edad = value
         End Set
     End Property
+    Private _email As String
+
+    Public Property Email As String
+        Get
+            Return _email
+        End Get
+        Set(value As String)
+            _email = value
+        End Set
+    End Property
+    Private _telefono As String
+    Public Property Telefono As String
+        Get
+            Return _telefono
+        End Get
+        Set(value As String)
+            _telefono = value
+        End Set
+    End Property
+    Private _genero As String
+    Public Property Genero As String
+        Get
+            Return _genero
+        End Get
+        Set(value As String)
+            _genero = value
+        End Set
+    End Property
+
+    Public Property CedulaIdentidad As String
+        Get
+            Return _cedulaIdentidad
+        End Get
+        Set(value As String)
+            _cedulaIdentidad = value
+        End Set
+    End Property
+
+    Private _cedulaIdentidad As String
+
+
+
+
+
 End Class
