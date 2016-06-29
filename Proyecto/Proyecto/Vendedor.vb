@@ -19,22 +19,22 @@
             _contraseña = value
         End Set
     End Property
-    Private _id As Short
+    Private _id As String
 
-    Public Property Id As Short
+    Public Property Id As String
         Get
             Return _id
         End Get
-        Set(value As Short)
+        Set(value As String)
             _id = value
         End Set
     End Property
-    Private _fechaDeContrato As Date
-    Public Property FechaDeContrato As Date
+    Private _fechaDeContrato As String
+    Public Property FechaDeContrato As String
         Get
             Return _fechaDeContrato
         End Get
-        Set(value As Date)
+        Set(value As String)
             _fechaDeContrato = value
         End Set
     End Property
@@ -51,7 +51,7 @@
     End Property
 
 
-    Public Sub New(nombre As String, apellido As String, edad As Short, email As String, telefono As String, genero As String, cedula As String, usuario As String, contraseña As String, id As Short, fechaContrato As Date, contacto As String)
+    Public Sub New(nombre As String, apellido As String, edad As Integer, email As String, telefono As String, genero As String, cedula As String, usuario As String, contraseña As String, id As String, fechaContrato As String, contacto As String)
         MyBase.New(nombre, apellido, edad, email, telefono, genero, cedula)
         Me.Usuario = usuario
         Me.Contraseña = contraseña

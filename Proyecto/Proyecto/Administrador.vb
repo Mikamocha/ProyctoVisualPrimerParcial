@@ -30,7 +30,7 @@
         End Set
     End Property
 
-    Public Sub New(nombre As String, apellido As String, edad As Short, email As String, telefono As String, genero As String, cedula As String, nroPersonasCargo As Integer, usuario As String, contraseña As String)
+    Public Sub New(nombre As String, apellido As String, edad As Integer, email As String, telefono As String, genero As String, cedula As String, nroPersonasCargo As Integer, usuario As String, contraseña As String)
         MyBase.New(nombre, apellido, edad, email, telefono, genero, cedula)
         Me.NroPersonasAcargo = nroPersonasCargo
         Me.Usuario = usuario

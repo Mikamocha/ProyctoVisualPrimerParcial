@@ -20,12 +20,12 @@
     End Property
 
 
-    Private _edad As Short
-    Public Property Edad() As Short
+    Private _edad As Integer
+    Public Property Edad() As Integer
         Get
             Return _edad
         End Get
-        Set(ByVal value As Short)
+        Set(ByVal value As Integer)
             _edad = value
         End Set
     End Property
@@ -69,7 +69,7 @@
         End Set
     End Property
 
-    Sub New(nombre As String, apellido As String, edad As Short, email As String, telefono As String, genero As String, cedula As String)
+    Sub New(nombre As String, apellido As String, edad As Integer, email As String, telefono As String, genero As String, cedula As String)
         Me.Nombre = nombre
         Me.Apellido = apellido
         Me.Edad = edad
@@ -84,8 +84,8 @@
     End Sub
 
     Public Overrides Function toString() As String
-        Return "Nombre :  " & Nombre & "  Apellido:    " & Apellido + "   Edad:     " + Edad + "  Email:    " & Email & "   Telefono" & Telefono & "  Genero:   " & Genero &
-            "Cedula:    " & CedulaIdentidad
+        Return "Nombre :  " & Nombre & "  Apellido:    " & Apellido & "   Edad:     " & Edad & "  Email:    " & Email & "   Telefono" & Telefono & "  Genero:   " & Genero &
+            "   Cedula:    " & CedulaIdentidad
     End Function
 
 
