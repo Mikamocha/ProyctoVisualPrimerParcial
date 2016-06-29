@@ -32,4 +32,16 @@
     End Property
 
 
+    Public Sub New(nombre As String, apellido As String, edad As Short, email As String, telefono As String, genero As String, cedula As String, id As Short, fechaContrato As Date, contacto As String)
+        MyBase.New(nombre, apellido, edad, email, telefono, genero, cedula)
+        Me.Id = id
+        Me.FechaDeContrato = fechaContrato
+        Me.Contacto = contacto
+
+    End Sub
+
+
+    Public Overrides Function toString() As String
+        Return MyBase.toString() & "   Id:  " & Id & "Fecha de contrato:     " & FechaDeContrato & "Contacto:    " & Contacto
+    End Function
 End Class
