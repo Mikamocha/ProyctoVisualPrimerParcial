@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Administrador.vb" />
     <Compile Include="Cliente.vb" />
+    <Compile Include="Empresa.vb" />
     <Compile Include="Factura.vb" />
     <Compile Include="Module1.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

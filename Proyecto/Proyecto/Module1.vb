@@ -16,6 +16,24 @@
                 Console.Write("Digite su contraseña     :")
                 contraseña = Console.ReadLine()
                 vendedor = New Vendedor(usuario, contraseña)
+
+                'leer xml y validar
+                'if usuario y contraseña son iguales...entra
+
+                Console.WriteLine("Escoga una opcion... :")
+                Console.WriteLine("1.   Nueva Factura")
+                Console.WriteLine("2.   Buscar Factura")
+                Console.Write("Opcion:     ")
+
+                Dim opcion2 As Integer = Console.ReadLine()
+                Select Case opcion2
+                    Case 1
+                        'aqui se creara la factura 
+                        'Dim factura As Factura
+                        'factura.ClienteComprador.Nombre = Console.ReadLine()
+                        'factura = New Factura()
+                End Select
+
             Case 2
                 Dim administrador As Administrador
                 Console.Write("Digite su usuario    :")
@@ -34,12 +52,19 @@
                 Dim opcion1 As Integer = Console.ReadLine()
                 Select Case opcion1
                     Case 1
-                        'Dim producto As Producto
-                        'Console.Write("Digite su usuario    :")
-                        'usuario = Console.ReadLine()
-                        'Console.Write("Digite su contraseña     :")
-                        'contraseña = Console.ReadLine()
-                        'vendedor = New Vendedor(usuario, contraseña)
+                        Dim codigo, nombreProducto, registraIva As String
+                        Dim precioUnitario As Double
+                        Dim producto As Producto
+                        Console.Write("codigo    :")
+                        codigo = Console.ReadLine()
+                        Console.Write("Producto     :")
+                        nombreProducto = Console.ReadLine()
+                        Console.Write("P.Unitario    :")
+                        precioUnitario = Console.ReadLine()
+                        Console.Write("Registra IVA     :")
+                        registraIva = Console.ReadLine()
+                        producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
+                        Console.WriteLine(producto.tostring())
                     Case 2
                         Dim nombre, apellido, email, telefono, genero, cedula, id, fechaContrato, contacto As String
                         Dim edad As Integer
