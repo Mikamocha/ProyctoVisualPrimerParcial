@@ -79,6 +79,9 @@
         Me.CedulaIdentidad = cedula
     End Sub
 
+    Sub New()
+
+    End Sub
 
     Public Overrides Function toString() As String
         Return "Nombre :  " & Nombre & "  Apellido:    " & Apellido + "   Edad:     " + Edad + "  Email:    " & Email & "   Telefono" & Telefono & "  Genero:   " & Genero &
