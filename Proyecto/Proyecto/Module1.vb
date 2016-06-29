@@ -1,108 +1,135 @@
 ﻿Module Module1
 
     Sub Main()
-        Console.WriteLine("Bienvenidos a ........")
-        Console.WriteLine("Escoga una opcion... :")
-        Console.WriteLine("1.   Inicie sesion como Vendedor")
-        Console.WriteLine("2.   Inicie sesion como Administrador")
-        Console.WriteLine("Opcion:     ")
+        Dim opcion, opcion1, opcion2 As Integer
         Dim usuario, contraseña As String
-        Dim opcion As Integer = Console.ReadLine()
-        Select Case opcion
-            Case 1
-                Dim vendedor As Vendedor
-                Console.Write("Digite su usuario    :")
-                usuario = Console.ReadLine()
-                Console.Write("Digite su contraseña     :")
-                contraseña = Console.ReadLine()
-                vendedor = New Vendedor(usuario, contraseña)
+        Dim seguir As Boolean = True
 
-                'leer xml y validar
-                'if usuario y contraseña son iguales...entra
 
+        Do
+                Console.Clear()
+                Console.WriteLine("******** Sistema de Facturacion ********")
+                Console.WriteLine("Bienvenidos a ........")
                 Console.WriteLine("Escoga una opcion... :")
-                Console.WriteLine("1.   Nueva Factura")
-                Console.WriteLine("2.   Buscar Factura")
-                Console.Write("Opcion:     ")
+                Console.WriteLine("1.   Inicie sesion como Vendedor")
+                Console.WriteLine("2.   Inicie sesion como Administrador")
+                Console.WriteLine("Opcion:     ")
+                opcion = validarDatosnumerico()
+            Loop Until opcion < 3 And opcion > 0
+            Select Case opcion
+                Case 1
+                    Dim vendedor As Vendedor
+                    Console.Write("Digite su usuario    :")
+                    usuario = Console.ReadLine()
+                    Console.Write("Digite su contraseña     :")
+                    contraseña = Console.ReadLine()
+                    vendedor = New Vendedor(usuario, contraseña)
 
-                Dim opcion2 As Integer = Console.ReadLine()
-                Select Case opcion2
-                    Case 1
-                        'aqui se creara la factura 
-                        'Dim factura As Factura
-                        'factura.ClienteComprador.Nombre = Console.ReadLine()
-                        'factura = New Factura()
-                End Select
+                    'leer xml y validar
+                    'if usuario y contraseña son iguales...entra
 
-            Case 2
-                Dim administrador As Administrador
-                Console.Write("Digite su usuario    :")
-                usuario = Console.ReadLine()
-                Console.Write("Digite su contraseña     :")
-                contraseña = Console.ReadLine()
-                administrador = New Administrador(usuario, contraseña)
+                    Console.WriteLine("Escoga una opcion... :")
+                    Console.WriteLine("1.   Nueva Factura")
+                    Console.WriteLine("2.   Buscar Factura")
+                    Console.Write("Opcion:     ")
+                    Do
+                        opcion2 = validarDatosnumerico()
+                    Loop While opcion2 > 0 And opcion1 < 4
+                    Select Case opcion2
+                        Case 1
+                            'aqui se creara la factura 
+                            'Dim factura As Factura
+                            'factura.ClienteComprador.Nombre = Console.ReadLine()
+                            'factura = New Factura()
+                    End Select
 
-                'leer xml administrador para hacer la validacion
+                Case 2
+                    Dim administrador As Administrador
+                    Console.Write("Digite su usuario    :")
+                    usuario = Console.ReadLine()
+                    Console.Write("Digite su contraseña     :")
+                    contraseña = Console.ReadLine()
+                    administrador = New Administrador(usuario, contraseña)
 
-                Console.WriteLine("Escoga una operacion que desee realizar:")
-                Console.WriteLine("1.   Añadir un producto")
-                Console.WriteLine("2.   Registrar Vendedor")
-                Console.WriteLine("3.   Listar vendedores a cargo")
-                Console.Write("Opcion #:")
-                Dim opcion1 As Integer = Console.ReadLine()
-                Select Case opcion1
-                    Case 1
-                        Dim codigo, nombreProducto, registraIva As String
-                        Dim precioUnitario As Double
-                        Dim producto As Producto
-                        Console.Write("codigo    :")
-                        codigo = Console.ReadLine()
-                        Console.Write("Producto     :")
-                        nombreProducto = Console.ReadLine()
-                        Console.Write("P.Unitario    :")
-                        precioUnitario = Console.ReadLine()
-                        Console.Write("Registra IVA     :")
-                        registraIva = Console.ReadLine()
-                        producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
-                        Console.WriteLine(producto.tostring())
-                    Case 2
-                        Dim nombre, apellido, email, telefono, genero, cedula, id, fechaContrato, contacto As String
-                        Dim edad As Integer
-                        Dim vendedor As Vendedor
-                        Console.WriteLine("A continuacion digite los datos del vendedor a registrar")
-                        Console.Write("Nombre    :")
-                        nombre = Console.ReadLine()
-                        Console.Write("Apellido    :")
-                        apellido = Console.ReadLine()
-                        Console.Write("Edad    :")
-                        edad = Console.ReadLine()
-                        Console.Write("Email    :")
-                        email = Console.ReadLine()
-                        Console.Write("Telefono   :")
-                        telefono = Console.ReadLine()
-                        Console.Write(" Genero    :")
-                        genero = Console.ReadLine()
-                        Console.Write("Cedula    :")
-                        cedula = Console.ReadLine()
-                        Console.Write("Usuario    :")
-                        usuario = Console.ReadLine()
-                        Console.Write("Contraseña    :")
-                        contraseña = Console.ReadLine()
-                        Console.Write("Id    :")
-                        id = Console.ReadLine()
-                        Console.Write("Fecha de Contrato    :")
-                        fechaContrato = Console.ReadLine()
-                        Console.Write("Contacto    :")
-                        contacto = Console.ReadLine()
-                        vendedor = New Vendedor(nombre, apellido, edad, email, telefono, genero, cedula, usuario, contraseña, id, fechaContrato, contacto)
-                        Console.WriteLine(vendedor.toString())
-                    Case 3
-                        'leer xml y listar todos los vendedores
-                End Select
-        End Select
+                    'leer xml administrador para hacer la validacion
+                    Console.Clear()
+                    Console.WriteLine("Escoga una operacion que desee realizar:")
+                    Console.WriteLine("1.   Añadir un producto")
+                    Console.WriteLine("2.   Registrar Vendedor")
+                    Console.WriteLine("3.   Listar vendedores a cargo")
+                    Console.Write("Opcion #:")
+                    Do
+                        opcion1 = validarDatosnumerico()
+                    Loop While opcion1 > 0 And opcion1 < 4
+                    Select Case opcion1
+                        Case 1
+                            Dim codigo, nombreProducto, registraIva As String
+                            Dim precioUnitario As Double
+                            Dim producto As Producto
+                            Console.Write("codigo    :")
+                            codigo = Console.ReadLine()
+                            Console.Write("Producto     :")
+                            nombreProducto = Console.ReadLine()
+                            Console.Write("P.Unitario    :")
+                            precioUnitario = Console.ReadLine()
+                            Console.Write("Registra IVA     :")
+                            registraIva = Console.ReadLine()
+                            producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
+                            Console.WriteLine(producto.tostring())
+                        Case 2
+                            Dim nombre, apellido, email, telefono, genero, cedula, id, fechaContrato, contacto As String
+                            Dim edad As Integer
+                            Dim vendedor As Vendedor
+                            Console.WriteLine("A continuacion digite los datos del vendedor a registrar")
+                            Console.Write("Nombre    :")
+                            nombre = Console.ReadLine()
+                            Console.Write("Apellido    :")
+                            apellido = Console.ReadLine()
+                            Console.Write("Edad    :")
+                            edad = Console.ReadLine()
+                            Console.Write("Email    :")
+                            email = Console.ReadLine()
+                            Console.Write("Telefono   :")
+                            telefono = Console.ReadLine()
+                            Console.Write(" Genero    :")
+                            genero = Console.ReadLine()
+                            Console.Write("Cedula    :")
+                            cedula = Console.ReadLine()
+                            Console.Write("Usuario    :")
+                            usuario = Console.ReadLine()
+                            Console.Write("Contraseña    :")
+                            contraseña = Console.ReadLine()
+                            Console.Write("Id    :")
+                            id = Console.ReadLine()
+                            Console.Write("Fecha de Contrato    :")
+                            fechaContrato = Console.ReadLine()
+                            Console.Write("Contacto    :")
+                            contacto = Console.ReadLine()
+                            vendedor = New Vendedor(nombre, apellido, edad, email, telefono, genero, cedula, usuario, contraseña, id, fechaContrato, contacto)
+                            Console.WriteLine(vendedor.toString())
+                        Case 3
+                            'leer xml y listar todos los vendedores
+                    End Select
+            End Select
 
         Console.ReadLine()
 
     End Sub
-
+    Public Function validarDatosnumerico() As Integer
+        Dim numero As Integer = 0
+        Dim aux As Object = 0
+        Dim bol As Boolean = True
+        Do While True
+            aux = Console.ReadLine()
+            bol = IsNumeric(aux)
+            If bol Then
+                numero = aux
+                Return numero
+            Else
+                Console.WriteLine("-----Error Vuelva a Ingresar-----")
+            End If
+        Loop
+        numero = aux
+        Return numero
+    End Function
 End Module
