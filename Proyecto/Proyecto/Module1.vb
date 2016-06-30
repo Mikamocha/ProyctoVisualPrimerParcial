@@ -25,17 +25,16 @@
                     contraseña = Console.ReadLine()
                     vendedor = New Vendedor(usuario, contraseña)
 
-                    'leer xml y validar
-                    'if usuario y contraseña son iguales...entra
-
+                'leer xml y validar
+                'if usuario y contraseña son iguales...entra
+                Do
                     Console.WriteLine("Escoga una opcion... :")
                     Console.WriteLine("1.   Nueva Factura")
                     Console.WriteLine("2.   Buscar Factura")
                     Console.Write("Opcion:     ")
-                    Do
-                        opcion2 = validarDatosnumerico()
-                    Loop While opcion2 > 0 And opcion1 < 4
-                    Select Case opcion2
+                    opcion2 = validarDatosnumerico()
+                Loop Until opcion2 > 0 And opcion1 < 4
+                Select Case opcion2
                         Case 1
                             'aqui se creara la factura 
                             'Dim factura As Factura
@@ -51,17 +50,17 @@
                     contraseña = Console.ReadLine()
                     administrador = New Administrador(usuario, contraseña)
 
-                    'leer xml administrador para hacer la validacion
+                'leer xml administrador para hacer la validacion
+                Do
                     Console.Clear()
                     Console.WriteLine("Escoga una operacion que desee realizar:")
                     Console.WriteLine("1.   Añadir un producto")
                     Console.WriteLine("2.   Registrar Vendedor")
                     Console.WriteLine("3.   Listar vendedores a cargo")
                     Console.Write("Opcion #:")
-                    Do
-                        opcion1 = validarDatosnumerico()
-                    Loop While opcion1 > 0 And opcion1 < 4
-                    Select Case opcion1
+                    opcion1 = validarDatosnumerico()
+                Loop Until opcion1 > 0 And opcion1 < 4
+                Select Case opcion1
                         Case 1
                             Dim codigo, nombreProducto, registraIva As String
                             Dim precioUnitario As Double
