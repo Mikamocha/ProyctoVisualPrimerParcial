@@ -28,25 +28,29 @@
             _precioUnitario = value
         End Set
     End Property
-
-
-    Private _registraIva As String
-    Public Property RegistraIva() As String
+    Private _registraIva As Boolean
+    Public Property RegistraIva As Boolean
         Get
             Return _registraIva
         End Get
-        Set(ByVal value As String)
+        Set(value As Boolean)
             _registraIva = value
         End Set
     End Property
 
-    Sub New(codigo As String, nombreProducto As String, precioUnitario As Double, registraIva As String)
+
+
+
+    Sub New(codigo As String, nombreProducto As String, precioUnitario As Double, registraIva As Boolean)
         Me.Codigo = codigo
         Me.NombreProducto = nombreProducto
         Me.PrecioUnitario = precioUnitario
         Me.RegistraIva = registraIva
     End Sub
 
+    Public Sub New(codigo As String)
+        Me.Codigo = codigo
+    End Sub
 
     Public Overrides Function tostring() As String
         Return "Codigo:     " & Codigo & "   Producto:   " & NombreProducto & "Precio unitario" & PrecioUnitario & "   Registra Iva:   " & RegistraIva

@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Administrador.vb" />
+    <Compile Include="Almacen de Productos.vb" />
     <Compile Include="Cliente.vb" />
     <Compile Include="Empresa.vb" />
     <Compile Include="Factura.vb" />
