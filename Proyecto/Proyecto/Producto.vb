@@ -38,7 +38,9 @@
         End Set
     End Property
 
+    Public Sub New()
 
+    End Sub
 
 
     Sub New(codigo As String, nombreProducto As String, precioUnitario As Double, registraIva As Boolean)
@@ -53,6 +55,6 @@
     End Sub
 
     Public Overrides Function tostring() As String
-        Return "Codigo:     " & Codigo & "   Producto:   " & NombreProducto & "Precio unitario" & PrecioUnitario & "   Registra Iva:   " & RegistraIva
+        Return "Codigo: " & Codigo & vbNewLine & "Producto: " & NombreProducto & vbTab & "Precio unitario: " & PrecioUnitario & "   Registra Iva:" & RegistraIva & vbNewLine & "------------------------------------------------------------------ "
     End Function
 End Class
