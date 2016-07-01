@@ -84,8 +84,8 @@
     End Sub
 
     Public Overrides Function toString() As String
-        Return "Nombre :  " & Nombre & "  Apellido:    " & Apellido & "   Edad:     " & Edad & "  Email:    " & Email & "   Telefono" & Telefono & "  Genero:   " & Genero &
-            "   Cedula:    " & CedulaIdentidad
+        Return "Nombre:  " & Nombre & "    Apellido:    " & Apellido & "    Edad:     " & Edad & "    Email:    " & Email & "    Telefono:    " & Telefono & "    Genero:   " & Genero &
+            "    Cedula:    " & CedulaIdentidad
     End Function
 
 
