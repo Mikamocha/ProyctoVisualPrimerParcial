@@ -1,7 +1,8 @@
 ﻿Imports System.Xml
 
 Module Module1
-    Public almacen As New Almacen_de_Productos()
+    Public almacen As New ArrayList()
+    Public ind As Integer = 0
     Sub Main()
 
         leerXmlProductos()
@@ -62,7 +63,7 @@ Module Module1
 
                 'leer xml administrador para hacer la validacion
                 Do
-                    Console.Clear()
+
 
                     Console.WriteLine("Escoga una operacion que desee realizar:")
                     Console.WriteLine("1.   Añadir un producto")
@@ -122,7 +123,9 @@ Module Module1
                         'leer xml y listar todos los vendedores
                         Dim nvendedor As Vendedor = New Vendedor(raiz.Item(0))
                     Case 4
-                        almacen.mostrarProductosDelAlmacen()
+
+
+
                 End Select
         End Select
 
@@ -153,13 +156,9 @@ Module Module1
         Dim raiz As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
         Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
         xmlDocProducto.Load(rutaProdutos)
-        For Each nodo As XmlNode In raiz
+        Do While (reader.Read())
 
-            For Each producto As XmlNode In nodo
-                almacen.añadirProductos(producto)
-            Next
-
-        Next
+        Loop
 
     End Sub
 

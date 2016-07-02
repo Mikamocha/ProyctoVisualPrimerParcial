@@ -44,6 +44,7 @@ Public Class Almacen_de_Productos
     End Sub
 
     Public Sub mostrarProductosDelAlmacen()
+
         For Each producto As Producto In _almacenProductos
             Console.WriteLine(producto.tostring())
 
