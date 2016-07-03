@@ -18,7 +18,7 @@ Module Module1
 
 
         Do
-            Console.Clear()
+            'Console.Clear()
             Console.WriteLine("******** Sistema de Facturacion ********")
             Console.WriteLine("Bienvenidos a ........")
             Console.WriteLine("Escoga una opcion... :")
@@ -123,7 +123,10 @@ Module Module1
                         'leer xml y listar todos los vendedores
                         Dim nvendedor As Vendedor = New Vendedor(raiz.Item(0))
                     Case 4
-
+                        For i As Integer = 0 To almacen.Count Step 1
+                            almacen.Item(i).mostrarProductosDelAlmacen()
+                            i = i + 1
+                        Next
 
 
                 End Select
@@ -156,9 +159,16 @@ Module Module1
         Dim raiz As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
         Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
         xmlDocProducto.Load(rutaProdutos)
-        Do While (reader.Read())
+        For Each nodoPrincipal As XmlNode In raiz
+            Dim producto As New Almacen_de_Productos(nodoPrincipal.Attributes(0).Value)
+            For Each nodoSecundario As XmlNode In nodoPrincipal
+                producto.añadirProductos(nodoSecundario)
+                'producto.mostrarProductosDelAlmacen()
+            Next
+            almacen.Add(producto)
+        Next
 
-        Loop
+
 
     End Sub
 

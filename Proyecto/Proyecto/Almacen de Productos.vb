@@ -1,18 +1,10 @@
 ﻿Imports System.Xml
 
 Public Class Almacen_de_Productos
-    Private _almacenProductos As New ArrayList()
+    Public _almacenProductos As New ArrayList()
     Public indice As Integer = 0
     Private value As String
 
-    Public Property AlmacenProductos As ArrayList
-        Get
-            Return _almacenProductos
-        End Get
-        Set(value As ArrayList)
-            _almacenProductos = value
-        End Set
-    End Property
 
     Public Sub New()
 
