@@ -93,4 +93,18 @@
     <FechaContrato>16/07/2015</FechaContrato>
     <Contacto>Floresta</Contacto>
   </Vendedor>
+  <Vendedor>
+    <Nombre>jenniffer</Nombre>
+    <Apellido>cedeño</Apellido>
+    <Edad>20</Edad>
+    <Email>jcedeño</Email>
+    <Telefono>2045690</Telefono>
+    <Genero>femenino</Genero>
+    <Cedula>0920934523</Cedula>
+    <Usuario>jcedeño</Usuario>
+    <Contraseña>dulcemania</Contraseña>
+    <Id>2106</Id>
+    <FechaContrato>12/07/2014</FechaContrato>
+    <Contacto>guasmo norte</Contacto>
+  </Vendedor>
 </Registro_Usuarios>

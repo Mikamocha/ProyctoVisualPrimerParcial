@@ -1,4 +1,6 @@
-﻿Public Class Producto
+﻿Imports System.Xml
+
+Public Class Producto
     Private _codigo As String
     Public Property Codigo() As String
         Get
@@ -56,5 +58,24 @@
 
     Public Overrides Function tostring() As String
         Return "Codigo: " & Codigo & vbNewLine & "Producto: " & NombreProducto & vbTab & "Precio unitario: " & PrecioUnitario & "   Registra Iva:" & RegistraIva & vbNewLine & "------------------------------------------------------------------ "
+    End Function
+
+
+    Public Function agregarProducto(xmlDocProducto As XmlDocument)
+        Dim producto As XmlElement = xmlDocProducto.CreateElement("producto")
+        producto.SetAttribute("codigo", Me.Codigo)
+        Dim nombre As XmlElement = xmlDocProducto.CreateElement("nombre")
+        Dim precioUnit As XmlElement = xmlDocProducto.CreateElement("pUnitario")
+        Dim iva As XmlElement = xmlDocProducto.CreateElement("iva")
+
+        nombre.InnerText = Me.NombreProducto
+        precioUnit.InnerText = Me.PrecioUnitario
+        iva.InnerText = Me.RegistraIva
+
+        producto.AppendChild(nombre)
+        producto.AppendChild(precioUnit)
+        producto.AppendChild(iva)
+
+        Return producto
     End Function
 End Class
