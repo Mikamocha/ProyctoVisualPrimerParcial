@@ -1,20 +1,5 @@
-﻿Imports Proyecto
-
-Public Class Factura
-
-
+﻿Public Class Factura
     Private _numero As String
-    Private _estab As String
-    Private _ptoEmi As String
-    Private _secuencial As String
-    Private _fecha As String
-    Private _impuestos As String
-    Private _cliente As Cliente
-    Private _empresa As Empresa
-    Private _totalSimImpuestos As Double
-    Private _total As String
-    Private _totalDescuento As Double
-    Private _provincia As String
     Public Property Numero() As String
         Get
             Return _numero
@@ -23,7 +8,7 @@ Public Class Factura
             _numero = value
         End Set
     End Property
-
+    Private _estab As String
     Public Property Establecimiento() As String
         Get
             Return _estab
@@ -33,7 +18,7 @@ Public Class Factura
         End Set
     End Property
 
-
+    Private _ptoEmi As String
     Public Property PuntoEmision() As String
         Get
             Return _ptoEmi
@@ -43,7 +28,7 @@ Public Class Factura
         End Set
     End Property
 
-
+    Private _secuencial As String
     Public Property Secuencial() As String
         Get
             Return _secuencial
@@ -53,7 +38,7 @@ Public Class Factura
         End Set
     End Property
 
-
+    Private _fecha As String
     Public Property Fecha() As String
         Get
             Return _fecha
@@ -63,7 +48,7 @@ Public Class Factura
         End Set
     End Property
 
-
+    Private _impuestos As String
     Public Property Impuestos() As String
         Get
             Return _impuestos
@@ -73,6 +58,7 @@ Public Class Factura
         End Set
     End Property
 
+    Private _total As String
     Public Property Total() As String
         Get
             Return _total
@@ -83,25 +69,7 @@ Public Class Factura
     End Property
     Public detalles As ArrayList
 
-    Public Sub New(numero As String, estab As String, ptoEmi As String, secuencial As String, fecha As String, impuestos As String, cliente As Cliente, empresa As Empresa, totalSimImpuestos As Double, total As String, totalDescuento As Double, provincia As String)
-        Me._numero = numero
-        Me._estab = estab
-        Me._ptoEmi = ptoEmi
-        Me._secuencial = secuencial
-        Me._fecha = fecha
-        Me._impuestos = impuestos
-        Me._cliente = cliente
-        Me._empresa = empresa
-        Me._totalSimImpuestos = totalSimImpuestos
-        Me._total = total
-        Me._totalDescuento = totalDescuento
-        Me._provincia = provincia
-    End Sub
-
-    Public Sub New()
-
-    End Sub
-
+    Private _empresa As Empresa
     Public Property EmpresaFactura() As Empresa
         Get
             Return _empresa
@@ -111,7 +79,7 @@ Public Class Factura
         End Set
     End Property
 
-
+    Private _cliente As Cliente
     Public Property ClienteComprador() As Cliente
         Get
             Return _cliente
@@ -121,6 +89,7 @@ Public Class Factura
         End Set
     End Property
 
+    Private _totalSimImpuestos As Double
     Public Property TotalSinImpuestos() As Double
         Get
             Return _totalSimImpuestos
@@ -130,7 +99,7 @@ Public Class Factura
         End Set
     End Property
 
-
+    Private _totalDescuento As Double
     Public Property TotalDescuento() As Double
         Get
             Return _totalDescuento
@@ -139,17 +108,6 @@ Public Class Factura
             _totalDescuento = value
         End Set
     End Property
-
-
-    Public Property Provincia As String
-        Get
-            Return _provincia
-        End Get
-        Set(value As String)
-            _provincia = value
-        End Set
-    End Property
-
 
 
 End Class

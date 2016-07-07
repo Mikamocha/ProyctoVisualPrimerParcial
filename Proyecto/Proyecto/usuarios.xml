@@ -107,18 +107,4 @@
     <FechaContrato>12/07/2014</FechaContrato>
     <Contacto>guasmo norte</Contacto>
   </Vendedor>
-  <Vendedor>
-    <Nombre>Paola</Nombre>
-    <Apellido>Ortiz</Apellido>
-    <Edad>21</Edad>
-    <Email>paopao@keilita.com</Email>
-    <Telefono>2655567</Telefono>
-    <Genero>Femenino</Genero>
-    <Cedula>0984444444</Cedula>
-    <Usuario>paopao</Usuario>
-    <Contraseña>angita</Contraseña>
-    <Id>1506</Id>
-    <FechaContrato>15/04/2015</FechaContrato>
-    <Contacto>Alborada</Contacto>
-  </Vendedor>
 </Registro_Usuarios>

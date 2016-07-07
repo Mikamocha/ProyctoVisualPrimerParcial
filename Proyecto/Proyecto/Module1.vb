@@ -1,5 +1,4 @@
 ﻿Imports System.Xml
-
 Module Module1
     Public almacen As New ArrayList()
     Public provincias As New ArrayList()
@@ -10,7 +9,6 @@ Module Module1
     Sub Main()
         crearProvincias()
         leerXmlProductos()
-
         xmldoc.Load(path)
 
         Dim opcion, opcion1, opcion2 As Integer
@@ -20,6 +18,7 @@ Module Module1
 
         Do
             'Console.Clear()
+            Console.WriteLine("--------------------------------------------------------------------------------")
             Console.WriteLine("******** Sistema de Facturacion ********")
             Console.WriteLine("Bienvenidos a ........")
             Console.WriteLine("Escoga una opcion... :")
@@ -58,26 +57,15 @@ Module Module1
                     Select Case opcion2
                         Case 1
                             Dim factura As New Factura()
-                            Dim existeProvincia As Boolean = False
-                            Do
-                                Console.WriteLine("Ingrese Provincia")
-                                factura.Provincia = Console.ReadLine()
+                            factura.ClienteComprador.Nombre = Console.ReadLine()
 
-                                existeProvincia = validarProvinvicias(factura.Provincia)
-                                'Console.WriteLine(validarProvinvicias(factura.Provincia))
-                                If existeProvincia <> True Then
-                                    ' Console.Clear()
-                                    Console.WriteLine("Provincia No existe")
-
-                                End If
-                            Loop Until existeProvincia = True
-                            Console.WriteLine("Provincia  existe")
                             'aqui se creara la factura 
                             'Dim factura As Factura
                             'factura.ClienteComprador.Nombre = Console.ReadLine()
                             'factura = New Factura()
                     End Select
                 End If
+
 
             Case 2
                 Dim existe
@@ -98,8 +86,8 @@ Module Module1
 
                 Loop Until existe = True
                 If existe Then
+                    Console.Clear()
                     Do
-
 
                         Console.WriteLine("Escoga una operacion que desee realizar:")
                         Console.WriteLine("1.   Añadir un producto")
@@ -126,20 +114,18 @@ Module Module1
                             registraIva = Console.ReadLine()
                             producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
                             'Console.WriteLine(producto.tostring())
-                            'Dim xmlDocProducto As New XmlDocument()
-                            Dim rutaProdutos As String = "..\..\productos.xml"
                             Dim xmlDocProducto As New XmlDocument()
-                            xmlDocProducto.Load(rutaProdutos)
+                            Dim rutaProdutos As String = "..\..\productos.xml"
                             Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
                             Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
                             Console.WriteLine(producto.tostring())
                             For Each nodo As XmlNode In raizProductos
-
-                                Console.WriteLine("Registrando...")
-                                nodo.AppendChild(nodos)
-
+                                For Each nodoSecundario In nodo
+                                    Console.WriteLine("Registrando...")
+                                    nodo.AppendChild(nodos)
+                                Next
                             Next
-                            Console.WriteLine("Su producto se ha registrado con exito")
+                            'Console.WriteLine("Su producto se ha registrado con exito")
                             xmlDocProducto.Save(rutaProdutos)
 
                         Case 2
@@ -194,6 +180,8 @@ Module Module1
 
                     End Select
                 End If
+
+
         End Select
 
         Console.ReadLine()
@@ -227,15 +215,11 @@ Module Module1
             Dim producto As New Almacen_de_Productos(nodoPrincipal.Attributes(0).Value)
             For Each nodoSecundario As XmlNode In nodoPrincipal
                 producto.añadirProductos(nodoSecundario)
-                'producto.mostrarProductosDelAlmacen()
+
             Next
             almacen.Add(producto)
         Next
-
-
-
     End Sub
-
 
     Public Function leerXmlPersonas(user As Object, cargo As Integer) As Boolean
         Dim confimarExistencia = False
@@ -266,7 +250,7 @@ Module Module1
                 Return True
             End If
         Else
-            For Each nodoPadre As XmlNode In raiz
+                For Each nodoPadre As XmlNode In raiz
                 For Each nodoHijo As XmlNode In nodoPadre
                     If nodoHijo.Name = "Administrador" Then
 
@@ -295,52 +279,17 @@ Module Module1
                 Return True
             End If
         End If
+
+
+
+
+
+
     End Function
 
 
-    Public Sub crearProvincias()
-        provincias.Add("Azuay")
-        provincias.Add("Bolivar")
-        provincias.Add("Cañar")
-        provincias.Add("Carchi")
-        provincias.Add("Chimborazo")
-        provincias.Add("Cotopaxi")
-        provincias.Add("El Oro")
-        provincias.Add("Esmeraldas")
-        provincias.Add("Galapagos")
-        provincias.Add("Guayas")
-        provincias.Add("Imbabura")
-        provincias.Add("Loja")
-        provincias.Add("Los Rios")
-        provincias.Add("Manabi")
-        provincias.Add("Morona santiago")
-        provincias.Add("Napo")
-        provincias.Add("Orellana")
-        provincias.Add("Pastaza")
-        provincias.Add("Pichincha")
-        provincias.Add("Santa Elena")
-        provincias.Add("Santo Domingo de los Tsachilas")
-        provincias.Add("Sucumbios")
-        provincias.Add("Tungurahua")
-        provincias.Add("Zamora Chinchipe")
-    End Sub
 
-    Public Function validarProvinvicias(nombreProvi As String) As Boolean
-        Dim encontro As Integer = 0 'si no existe es 0 si existe es 1
-        For Each prov As String In provincias
-            If String.Compare(prov, nombreProvi, True) = 0 Then
-                Console.WriteLine(prov)
 
-                encontro = 1
 
-            End If
-
-        Next
-        If encontro = 1 Then
-            Return True
-        Else
-            Return False
-        End If
-    End Function
 
 End Module
