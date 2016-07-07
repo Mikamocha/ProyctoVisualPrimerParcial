@@ -6,6 +6,12 @@ Module Module1
     Sub Main()
 
         leerXmlProductos()
+        Dim path As String = "..\..\usuarios.xml"
+
+        ' Dim pathW As String = "..\..\collectionW.xml"
+        Dim xmldoc As New XmlDocument()
+        xmldoc.Load(path)
+        Dim raiz As XmlNodeList = xmldoc.GetElementsByTagName("Registro_Usuarios")
 
         Dim opcion, opcion1, opcion2 As Integer
         Dim usuario, contraseña As String
@@ -67,7 +73,9 @@ Module Module1
                     Console.WriteLine("4.   Mostrar lista de Productos ")
                     Console.Write("Opcion #:")
                     opcion1 = validarDatosnumerico()
+
                 Loop Until opcion1 > 0 And opcion1 < 5
+                Dim vendedor As Vendedor
                 Select Case opcion1
                     Case 1
                         Dim codigo, nombreProducto, registraIva As String
@@ -82,11 +90,25 @@ Module Module1
                         Console.Write("Registra IVA     :")
                         registraIva = Console.ReadLine()
                         producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
+                        'Console.WriteLine(producto.tostring())
+                        Dim xmlDocProducto As New XmlDocument()
+                        Dim rutaProdutos As String = "..\..\productos.xml"
+                        Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
+                        Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
                         Console.WriteLine(producto.tostring())
+                        For Each nodo As XmlNode In raizProductos
+                            For Each nodoSecundario In nodo
+                                Console.WriteLine("Registrando...")
+                                nodo.AppendChild(nodos)
+                            Next
+                        Next
+                        'Console.WriteLine("Su producto se ha registrado con exito")
+                        xmlDocProducto.Save(rutaProdutos)
+
                     Case 2
                         Dim nombre, apellido, email, telefono, genero, cedula, id, fechaContrato, contacto As String
                         Dim edad As Integer
-                        Dim vendedor As Vendedor
+                        'Dim vendedor As Vendedor
                         Console.WriteLine("A continuacion digite los datos del vendedor a registrar")
                         Console.Write("Nombre    :")
                         nombre = Console.ReadLine()
@@ -113,10 +135,19 @@ Module Module1
                         Console.Write("Contacto    :")
                         contacto = Console.ReadLine()
                         vendedor = New Vendedor(nombre, apellido, edad, email, telefono, genero, cedula, usuario, contraseña, id, fechaContrato, contacto)
-                        Console.WriteLine(vendedor.toString())
+                        Dim nodos As XmlNode = vendedor.agregarVendedor(xmldoc)
+
+
+                        For Each nodo As XmlNode In raiz
+                            Console.WriteLine("Registrando...")
+                            nodo.AppendChild(nodos)
+                        Next
+                        Console.WriteLine("El nuevo vendedor fue agregado con exito")
+                        xmldoc.Save(path)
                     Case 3
                         'leer xml y listar todos los vendedores
                         Dim nvendedor As Vendedor = New Vendedor(raiz.Item(0))
+
                     Case 4
                         For i As Integer = 0 To almacen.Count Step 1
                             almacen.Item(i).mostrarProductosDelAlmacen()
@@ -151,21 +182,21 @@ Module Module1
     Public Sub leerXmlProductos()
         Dim xmlDocProducto As New XmlDocument()
         Dim rutaProdutos As String = "..\..\productos.xml"
-        Dim raiz As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
-        ' Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
+        Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
+        Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
         xmlDocProducto.Load(rutaProdutos)
-        For Each nodoPrincipal As XmlNode In raiz
+        For Each nodoPrincipal As XmlNode In raizProductos
             Dim producto As New Almacen_de_Productos(nodoPrincipal.Attributes(0).Value)
             For Each nodoSecundario As XmlNode In nodoPrincipal
                 producto.añadirProductos(nodoSecundario)
-
+                'producto.mostrarProductosDelAlmacen()
             Next
             almacen.Add(producto)
         Next
+
+
+
     End Sub
-
-
-
 
 
 

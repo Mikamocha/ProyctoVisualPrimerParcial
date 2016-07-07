@@ -128,4 +128,49 @@ Public Class Vendedor
         Next
     End Sub
 
+
+    Public Function agregarVendedor(xmldoc As XmlDocument)
+        Dim vendedor As XmlElement = xmldoc.CreateElement("Vendedor")
+        Dim nombre As XmlElement = xmldoc.CreateElement("Nombre")
+        Dim apellido As XmlElement = xmldoc.CreateElement("Apellido")
+        Dim edad As XmlElement = xmldoc.CreateElement("Edad")
+        Dim email As XmlElement = xmldoc.CreateElement("Email")
+        Dim telefono As XmlElement = xmldoc.CreateElement("Telefono")
+        Dim genero As XmlElement = xmldoc.CreateElement("Genero")
+        Dim cedula As XmlElement = xmldoc.CreateElement("Cedula")
+        Dim usuario As XmlElement = xmldoc.CreateElement("Usuario")
+        Dim contraseña As XmlElement = xmldoc.CreateElement("Contraseña")
+        Dim id As XmlElement = xmldoc.CreateElement("Id")
+        Dim fechaContrato As XmlElement = xmldoc.CreateElement("FechaContrato")
+        Dim contacto As XmlElement = xmldoc.CreateElement("Contacto")
+
+        nombre.InnerText = MyBase.Nombre
+        apellido.InnerText = MyBase.Apellido
+        edad.InnerText = MyBase.Edad
+        email.InnerText = MyBase.Email
+        telefono.InnerText = Me.Telefono
+        genero.InnerText = Me.Genero
+        cedula.InnerText = MyBase.CedulaIdentidad
+        usuario.InnerText = Me.Usuario
+        contraseña.InnerText = Me.Contraseña
+        id.InnerText = Me.Id
+        fechaContrato.InnerText = Me.FechaDeContrato
+        contacto.InnerText = Me.Contacto
+
+        vendedor.AppendChild(nombre)
+        vendedor.AppendChild(apellido)
+        vendedor.AppendChild(edad)
+        vendedor.AppendChild(email)
+        vendedor.AppendChild(telefono)
+        vendedor.AppendChild(genero)
+        vendedor.AppendChild(cedula)
+        vendedor.AppendChild(usuario)
+        vendedor.AppendChild(contraseña)
+        vendedor.AppendChild(id)
+        vendedor.AppendChild(fechaContrato)
+        vendedor.AppendChild(contacto)
+        Return vendedor
+    End Function
+
+
 End Class
