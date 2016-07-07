@@ -6,12 +6,7 @@ Module Module1
     Sub Main()
 
         leerXmlProductos()
-        Dim path As String = "..\..\usuarios.xml"
 
-        ' Dim pathW As String = "..\..\collectionW.xml"
-        Dim xmldoc As New XmlDocument()
-        xmldoc.Load(path)
-        Dim raiz As XmlNodeList = xmldoc.GetElementsByTagName("Registro_Usuarios")
         Dim opcion, opcion1, opcion2 As Integer
         Dim usuario, contraseña As String
         Dim seguir As Boolean = True
@@ -157,20 +152,20 @@ Module Module1
         Dim xmlDocProducto As New XmlDocument()
         Dim rutaProdutos As String = "..\..\productos.xml"
         Dim raiz As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
-        Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
+        ' Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
         xmlDocProducto.Load(rutaProdutos)
         For Each nodoPrincipal As XmlNode In raiz
             Dim producto As New Almacen_de_Productos(nodoPrincipal.Attributes(0).Value)
             For Each nodoSecundario As XmlNode In nodoPrincipal
                 producto.añadirProductos(nodoSecundario)
-                'producto.mostrarProductosDelAlmacen()
+
             Next
             almacen.Add(producto)
         Next
-
-
-
     End Sub
+
+
+
 
 
 
