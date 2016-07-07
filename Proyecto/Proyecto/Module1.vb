@@ -91,18 +91,20 @@ Module Module1
                         registraIva = Console.ReadLine()
                         producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
                         'Console.WriteLine(producto.tostring())
-                        Dim xmlDocProducto As New XmlDocument()
+                        'Dim xmlDocProducto As New XmlDocument()
                         Dim rutaProdutos As String = "..\..\productos.xml"
+                        Dim xmlDocProducto As New XmlDocument()
+                        xmlDocProducto.Load(rutaProdutos)
                         Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
                         Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
                         Console.WriteLine(producto.tostring())
                         For Each nodo As XmlNode In raizProductos
-                            For Each nodoSecundario In nodo
-                                Console.WriteLine("Registrando...")
+
+                            Console.WriteLine("Registrando...")
                                 nodo.AppendChild(nodos)
-                            Next
+
                         Next
-                        'Console.WriteLine("Su producto se ha registrado con exito")
+                        Console.WriteLine("Su producto se ha registrado con exito")
                         xmlDocProducto.Save(rutaProdutos)
 
                     Case 2
