@@ -59,6 +59,20 @@ Module Module1
                             Dim factura As New Factura()
                             factura.ClienteComprador.Nombre = Console.ReadLine()
 
+                            Dim existeProvincia As Boolean = False
+                            Do
+                                Console.WriteLine("Ingrese Provincia")
+                                factura.Provincia = Console.ReadLine()
+
+                                existeProvincia = validarProvinvicias(factura.Provincia)
+                                'Console.WriteLine(validarProvinvicias(factura.Provincia))
+                                If existeProvincia <> True Then
+                                    ' Console.Clear()
+                                    Console.WriteLine("Provincia No existe")
+
+                                End If
+                            Loop Until existeProvincia = True
+                            Console.WriteLine("Provincia  existe")
                             'aqui se creara la factura 
                             'Dim factura As Factura
                             'factura.ClienteComprador.Nombre = Console.ReadLine()
@@ -250,7 +264,7 @@ Module Module1
                 Return True
             End If
         Else
-                For Each nodoPadre As XmlNode In raiz
+            For Each nodoPadre As XmlNode In raiz
                 For Each nodoHijo As XmlNode In nodoPadre
                     If nodoHijo.Name = "Administrador" Then
 
@@ -280,16 +294,53 @@ Module Module1
             End If
         End If
 
-
-
-
-
-
     End Function
 
 
 
+    Public Sub crearProvincias()
+        provincias.Add("Azuay")
+        provincias.Add("Bolivar")
+        provincias.Add("Cañar")
+        provincias.Add("Carchi")
+        provincias.Add("Chimborazo")
+        provincias.Add("Cotopaxi")
+        provincias.Add("El Oro")
+        provincias.Add("Esmeraldas")
+        provincias.Add("Galapagos")
+        provincias.Add("Guayas")
+        provincias.Add("Imbabura")
+        provincias.Add("Loja")
+        provincias.Add("Los Rios")
+        provincias.Add("Manabi")
+        provincias.Add("Morona santiago")
+        provincias.Add("Napo")
+        provincias.Add("Orellana")
+        provincias.Add("Pastaza")
+        provincias.Add("Pichincha")
+        provincias.Add("Santa Elena")
+        provincias.Add("Santo Domingo de los Tsachilas")
+        provincias.Add("Sucumbios")
+        provincias.Add("Tungurahua")
+        provincias.Add("Zamora Chinchipe")
+    End Sub
 
 
+    Public Function validarProvinvicias(nombreProvi As String) As Boolean
+        Dim encontro As Integer = 0 'si no existe es 0 si existe es 1
+        For Each prov As String In provincias
+            If String.Compare(prov, nombreProvi, True) = 0 Then
+                Console.WriteLine(prov)
 
+                encontro = 1
+
+            End If
+
+        Next
+        If encontro = 1 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 End Module

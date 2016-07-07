@@ -108,6 +108,34 @@
             _totalDescuento = value
         End Set
     End Property
+    Private _provincia As String
+    Public Property Provincia As String
+        Get
+            Return _provincia
+        End Get
+        Set(value As String)
+            _provincia = value
+        End Set
+    End Property
+
+    Public Sub New(numero As String, estab As String, ptoEmi As String, secuencial As String, fecha As String, impuestos As String, cliente As Cliente, empresa As Empresa, totalSimImpuestos As Double, total As String, totalDescuento As Double, provincia As String)
+        Me._numero = numero
+        Me._estab = estab
+        Me._ptoEmi = ptoEmi
+        Me._secuencial = secuencial
+        Me._fecha = fecha
+        Me._impuestos = impuestos
+        Me._cliente = cliente
+        Me._empresa = empresa
+        Me._totalSimImpuestos = totalSimImpuestos
+        Me._total = total
+        Me._totalDescuento = totalDescuento
+        Me._provincia = provincia
+    End Sub
+
+    Public Sub New()
+
+    End Sub
 
 
 End Class
