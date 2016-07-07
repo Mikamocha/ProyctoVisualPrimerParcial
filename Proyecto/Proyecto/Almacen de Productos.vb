@@ -31,6 +31,7 @@ Public Class Almacen_de_Productos
         indice = indice + 1
     End Sub
 
+
     Public Sub añadirNuevoProductoEnXml(lista As XmlDocument, producto As Producto)
 
     End Sub
