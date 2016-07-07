@@ -26,6 +26,7 @@ Module Module1
             Console.WriteLine("2.   Inicie sesion como Administrador")
             Console.WriteLine("Opcion:     ")
             opcion = validarDatosnumerico()
+            Console.WriteLine("--------------------------------------------------------------------------------")
         Loop Until opcion < 3 And opcion > 0
         Select Case opcion
             Case 1
@@ -65,9 +66,8 @@ Module Module1
                                 factura.Provincia = Console.ReadLine()
 
                                 existeProvincia = validarProvinvicias(factura.Provincia)
-                                'Console.WriteLine(validarProvinvicias(factura.Provincia))
                                 If existeProvincia <> True Then
-                                    ' Console.Clear()
+                                    Console.Clear()
                                     Console.WriteLine("Provincia No existe")
 
                                 End If
