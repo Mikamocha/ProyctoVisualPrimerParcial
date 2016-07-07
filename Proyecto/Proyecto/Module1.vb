@@ -53,30 +53,49 @@ Module Module1
                         Do
                             Console.WriteLine("Escoga una opcion... :")
                             Console.WriteLine("1.   Nueva Factura")
-                            Console.WriteLine("2.   Buscar Factura")
+                            Console.WriteLine("2.   Salir")
                             Console.Write("Opcion:     ")
                             opcion2 = validarDatosnumerico()
                         Loop Until opcion2 > 0 And opcion1 < 2
                         Select Case opcion2
                             Case 1
-                                Dim factura As New Factura()
-                                Dim existeProvincia As Boolean = False
-                                Do
-                                    Console.WriteLine("Ingrese Provincia")
-                                    factura.Provincia = Console.ReadLine()
+                                Dim facturar As Boolean = True
+                                While facturar
+                                    Dim factura As New Factura()
+                                    Dim existeProvincia As Boolean = False
+                                    Do
+                                        Console.WriteLine("Ingrese Provincia")
+                                        factura.Provincia = Console.ReadLine()
 
-                                    existeProvincia = validarProvinvicias(factura.Provincia)
-                                    If existeProvincia <> True Then
-                                        Console.Clear()
-                                        Console.WriteLine("Provincia No existe")
+                                        existeProvincia = validarProvinvicias(factura.Provincia)
+                                        If existeProvincia <> True Then
+                                            Console.Clear()
+                                            Console.WriteLine("Provincia No existe")
 
+                                        End If
+                                    Loop Until existeProvincia = True
+                                    Console.WriteLine("Provincia  existe")
+                                    Dim resFactura As Integer
+                                    Do
+                                        Console.WriteLine("Desea Ingresar otra factura")
+                                        Console.WriteLine("1.- Si")
+                                        Console.WriteLine("2.- No")
+                                        resFactura = validarDatosnumerico()
+                                    Loop Until resFactura > 0 And resFactura < 3
+                                    If resFactura = 1 Then
+                                        facturar = True
+                                    Else
+                                        facturar = False
                                     End If
-                                Loop Until existeProvincia = True
-                                Console.WriteLine("Provincia  existe")
+                                End While
+
                                 'aqui se creara la factura 
                                 'Dim factura As Factura
                                 'factura.ClienteComprador.Nombre = Console.ReadLine()
                                 'factura = New Factura()
+                            Case 2
+                                FileClose()
+
                         End Select
                     End If
 
@@ -108,10 +127,11 @@ Module Module1
                             Console.WriteLine("2.   Registrar Vendedor")
                             Console.WriteLine("3.   Mostrar lista de vendedores ")
                             Console.WriteLine("4.   Mostrar lista de Productos ")
+                            Console.WriteLine("5.   Buscar Factura")
                             Console.Write("Opcion #:")
                             opcion1 = validarDatosnumerico()
 
-                        Loop Until opcion1 > 0 And opcion1 < 5
+                        Loop Until opcion1 > 0 And opcion1 < 6
                         Dim vendedor As Vendedor
                         Select Case opcion1
                             Case 1
@@ -199,7 +219,7 @@ Module Module1
             End Select
             Dim seguirOp As Integer
             Do
-                Console.WriteLine("Desea Ingresar otro usuario")
+                Console.WriteLine("Desea Ingresar como otro usuario")
                 Console.WriteLine("1.- Si")
                 Console.WriteLine("2.- No")
                 seguirOp = validarDatosnumerico()
@@ -208,6 +228,7 @@ Module Module1
                 seguirMenu = True
             Else
                 seguirMenu = False
+                Console.WriteLine("Adios que tenga un buen dia :)")
             End If
         End While
 

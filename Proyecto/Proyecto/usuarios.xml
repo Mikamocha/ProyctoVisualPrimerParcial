@@ -107,4 +107,18 @@
     <FechaContrato>12/07/2014</FechaContrato>
     <Contacto>guasmo norte</Contacto>
   </Vendedor>
+  <Vendedor>
+    <Nombre>Paola</Nombre>
+    <Apellido>Ortiz</Apellido>
+    <Edad>21</Edad>
+    <Email>paopao@GodBless.com</Email>
+    <Telefono>2585658</Telefono>
+    <Genero>Femenino</Genero>
+    <Cedula>098452222</Cedula>
+    <Usuario>paopao</Usuario>
+    <Contraseña>angita</Contraseña>
+    <Id>153</Id>
+    <FechaContrato>15/05/2014</FechaContrato>
+    <Contacto>Alborada</Contacto>
+  </Vendedor>
 </Registro_Usuarios>
