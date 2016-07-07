@@ -779,4 +779,9 @@
     <pUnitario>235</pUnitario>
     <iva>True</iva>
   </producto>
+  <producto codigo="00152">
+    <nombre>Doritos MEGA Queso</nombre>
+    <pUnitario>350</pUnitario>
+    <iva>True</iva>
+  </producto>
 </productos>
