@@ -142,4 +142,9 @@
     End Sub
 
 
+    Public Overrides Function ToString() As String
+        Return ClienteComprador.toString & "Numero de factura" & numFactura
+    End Function
+
+
 End Class
