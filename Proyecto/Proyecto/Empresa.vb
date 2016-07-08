@@ -48,7 +48,9 @@
     Public Sub New()
 
     End Sub
-
+    Public Sub New(nombreComercial As String)
+        _nombreComercial = nombreComercial
+    End Sub
     Overrides Function tostring() As String
         Return "Empresa:" & vbTab + Me.RazonSocial & vbTab & " RUC: " + Me.Ruc & vbTab &
                 " Direccion Matriz: " + Me.DirMatriz
