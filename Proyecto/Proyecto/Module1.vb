@@ -1,6 +1,7 @@
 ﻿Imports System.Xml
 Module Module1
     Public totalFacturas As Integer = 0
+    Public totalImpuestos As Integer = 0
     Public almacen As New ArrayList()
     Public provincias As New ArrayList()
     Public ind As Integer = 0
@@ -76,6 +77,8 @@ Module Module1
                                     cliente.Nombre = Console.ReadLine()
                                     Console.WriteLine("Escriba el Nombre del Apellido")
                                     cliente.Apellido = Console.ReadLine()
+                                    Console.WriteLine("Escriba # cedula")
+                                    cliente.CedulaIdentidad = Console.ReadLine()
                                     factura.NumeroFactura = contadorfacturas + 1
                                     factura.EmpresaFactura = llenarDatosCabeceraFact()
                                     factura.ClienteComprador = cliente
@@ -115,7 +118,7 @@ Module Module1
                                         factura.detalles.Add(producto)
                                         Dim seguirllenandoProdcutos As Integer
                                         Do
-                                            Console.WriteLine("Desea Ingresar como otro Producto")
+                                            Console.WriteLine("Desea Ingresar otro Producto")
                                             Console.WriteLine("1.- Si")
                                             Console.WriteLine("2.- No")
                                             seguirllenandoProdcutos = validarDatosnumerico()
@@ -148,9 +151,10 @@ Module Module1
                                     factura.Impuestos = calcularImpuestos(factura)
                                     factura.Total = calculartotal(factura)
                                     guardarXmlFactura(factura)
+
                                     Dim res As Integer = 0
                                     Do
-                                        Console.WriteLine("Desea Ingresar como otra Factura")
+                                        Console.WriteLine("Desea Ingresar otra Factura")
                                         Console.WriteLine("1.- Si")
                                         Console.WriteLine("2.- No")
                                         res = validarDatosnumerico()
@@ -465,7 +469,6 @@ Module Module1
         Dim encontro As Integer = 0 'si no existe es 0 si existe es 1
         For Each prov As String In provincias
             If String.Compare(prov, nombreProvi, True) = 0 Then
-                Console.WriteLine(prov)
 
                 encontro = 1
 
@@ -552,7 +555,7 @@ Module Module1
         rutaXML.WriteElementString("fecha", fac.Fecha)
         rutaXML.WriteElementString("provincia", fac.Provincia)
         rutaXML.WriteElementString("cliente", fac.ClienteComprador.Nombre & " " & fac.ClienteComprador.Apellido)
-
+        rutaXML.WriteElementString("cedula", fac.ClienteComprador.CedulaIdentidad)
 
         Dim contador As Integer = 1
         For Each producto As Producto In fac.detalles
@@ -589,7 +592,7 @@ Module Module1
         For Each p As Almacen_de_Productos In almacen
             For Each producto As Producto In p._almacenProductos
                 If String.Compare(producto.Codigo, codigo, True) = 0 Then
-                    Console.WriteLine(producto.NombreProducto)
+                    ' Console.WriteLine(producto.NombreProducto)
                     Return True
                 End If
             Next
@@ -646,22 +649,49 @@ Module Module1
             xmlDocProducto.Load(rutaProdutos)
             Console.WriteLine("--------------------------------------------------------------------------------")
             For Each nodoPrincipal As XmlNode In raizProductos
-                Console.WriteLine(nodoPrincipal.Name & vbNewLine)
-                For Each nodoSecundario As XmlNode In nodoPrincipal.ChildNodes
-                    Console.WriteLine(nodoSecundario.Name & vbTab & nodoSecundario.InnerText & vbNewLine)
-                    If (nodoSecundario.Name = "total") Then
-                        totalFacturas = totalFacturas + nodoSecundario.InnerText
-                    End If
-                Next
-                Console.WriteLine("--------------------------------------------------------------------------------")
-            Next
+                'Console.WriteLine(nodoPrincipal.Name & vbNewLine)
+                For Each nodoSecunda As XmlNode In nodoPrincipal
+                    For Each nodoSecundario As XmlNode In nodoSecunda.ChildNodes
+                        Console.WriteLine(nodoSecundario.Name)
+                        Select Case nodoSecundario.Name
 
-        Else
+                            Case "factura"
+                                Console.WriteLine("Factura: ")
+                                Console.WriteLine(nodoSecundario.InnerText & vbNewLine)
+                            Case "fecha"
+                                Console.WriteLine("Fecha: ")
+                                Console.WriteLine(nodoSecundario.InnerText & vbNewLine)
+                            Case "cliente"
+                                Console.WriteLine("Cliente:" & vbTab & nodoSecundario.InnerText & vbNewLine)
+                            Case "totalSinImpuestos"
+                                Console.WriteLine("Subtotal Sin Iva:" & vbTab & nodoSecundario.InnerText & vbNewLine)
+                            Case "totalDescuento"
+                                Console.WriteLine("Subtotal Descuento:" & vbTab & nodoSecundario.InnerText & vbNewLine)
+                            Case "total"
+                                Console.WriteLine("Total:" & vbTab & nodoSecundario.InnerText & vbNewLine)
+                                totalFacturas = totalFacturas + nodoSecundario.InnerText
+                            Case "impuestos"
+                                Console.WriteLine("Impuestos:" & vbTab & nodoSecundario.InnerText & vbNewLine)
+                                totalImpuestos = totalImpuestos + nodoSecundario.InnerText
+
+                        End Select
+                    Next
+
+
+
+
+
+                Next
+                    Console.WriteLine("--------------------------------------------------------------------------------")
+                Next
+
+                Else
             Console.WriteLine("No existen facturas para presentar")
         End If
     End Sub
 
     Public Sub mostrarInventario()
         Console.WriteLine("El total de facturas es:" & totalFacturas)
+        Console.WriteLine("El total de impuestos es:" & totalImpuestos)
     End Sub
 End Module
