@@ -139,7 +139,7 @@ Module Module1
                                     nodo.AppendChild(nodos)
                                 Next
                             Next
-                            'Console.WriteLine("Su producto se ha registrado con exito")
+                            Console.WriteLine("Su producto se ha registrado con exito")
                             xmlDocProducto.Save(rutaProdutos)
 
                         Case 2
