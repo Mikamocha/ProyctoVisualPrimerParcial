@@ -80,16 +80,16 @@ Module Module1
                                     thisDate = Today
                                     factura.Fecha = Today.ToString
                                     Dim existeProvincia As Boolean = False
-                                         Do
-                                 Console.WriteLine("Ingrese Provincia")
+                                    Do
+                                        Console.WriteLine("Ingrese Provincia")
                                         factura.Provincia = Console.ReadLine()
                                         existeProvincia = validarProvinvicias(factura.Provincia)
-                                        Console.WriteLine(validarProvinvicias(factura.Provincia))
+
                                         If existeProvincia <> True Then
                                             Console.Clear()
                                             Console.WriteLine("Provincia No existe")
 
-                                    End If
+                                        End If
                                     Loop Until existeProvincia = True
                                     Dim ingresarProductos As Boolean = True
                                     While ingresarProductos
@@ -123,7 +123,25 @@ Module Module1
                                             ingresarProductos = False
                                         End If
                                     End While
+
                                     factura.TotalSinImpuestos = calcularTotalSinImpuestos(factura)
+                                    Dim modoDePago As Integer = 0
+                                    Do
+                                        Console.WriteLine("Modo de pago")
+                                        Console.WriteLine("1.-EFECTIVO")
+                                        Console.WriteLine("2.-TARJETA")
+                                        Console.WriteLine("3.-DINERO ELECTRONICO")
+                                        modoDePago = validarDatosnumerico()
+                                    Loop Until modoDePago > 0 And modoDePago < 4
+                                    If modoDePago = 1 Then
+                                        factura.TotalDescuento = 0
+                                    End If
+                                    If modoDePago = 2 Then
+                                        factura.TotalDescuento = factura.TotalSinImpuestos * 0.1
+                                    End If
+                                    If modoDePago = 3 Then
+                                        factura.TotalDescuento = factura.TotalSinImpuestos * 0.4
+                                    End If
                                     factura.Impuestos = calcularImpuestos(factura)
                                     factura.Total = calculartotal(factura)
                                     guardarXmlFactura(factura)
@@ -146,7 +164,7 @@ Module Module1
                                     End If
 
                                 End While
-
+                                leerFactura()
 
                             Case 2
                                 FileClose()
@@ -182,7 +200,7 @@ Module Module1
                             Console.WriteLine("2.   Registrar Vendedor")
                             Console.WriteLine("3.   Mostrar lista de vendedores ")
                             Console.WriteLine("4.   Mostrar lista de Productos ")
-                            Console.WriteLine("5.   Buscar Factura")
+                            Console.WriteLine("5.   Buscar Producto")
                             Console.Write("Opcion #:")
                             opcion1 = validarDatosnumerico()
 
@@ -280,8 +298,11 @@ Module Module1
                                     almacen.Item(i).mostrarProductosDelAlmacen()
                                     i = i + 1
                                 Next
+                            Case 5
+                                Console.WriteLine("Ingrese el nombre que desa consultar")
 
-
+                                Dim producto As Producto = almacen.Item(0).buscarProductosDelAlmacen
+                                Console.WriteLine(producto.tostring)
                         End Select
                     End If
 
@@ -470,7 +491,6 @@ Module Module1
         Dim xmlDocFactura As New XmlDocument()
         Dim rutaFactura As String = "..\..\facturas.xml"
         Dim raizProductos As XmlNodeList = xmlDocFactura.GetElementsByTagName("Facturas")
-        Dim reader As XmlTextReader = New XmlTextReader(rutaFactura)
         xmlDocFactura.Load(rutaFactura)
         Dim numero As Integer = 0
         For Each nodo As XmlNode In raizProductos
@@ -532,7 +552,7 @@ Module Module1
             rutaXML.WriteElementString("productoNombre" & CStr(contador), producto.NombreProducto)
         Next
         rutaXML.WriteElementString("totalSinImpuestos", fac.TotalSinImpuestos)
-            rutaXML.WriteElementString("totalDescuento", fac.TotalDescuento)
+        rutaXML.WriteElementString("totalDescuento", fac.TotalDescuento)
         rutaXML.WriteElementString("impuestos", fac.Impuestos)
         rutaXML.WriteElementString("total", fac.Total)
         rutaXML.WriteEndElement()
@@ -608,5 +628,18 @@ Module Module1
         Return factura.TotalSinImpuestos + CDbl(factura.Impuestos) + CDbl(factura.TotalDescuento)
 
     End Function
+    Public Sub leerFactura()
+        Dim xmlDocProducto As New XmlDocument()
+        Dim rutaProdutos As String = "factura.xml"
+        Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("facturas")
+        Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
+        xmlDocProducto.Load(rutaProdutos)
+        For Each nodoPrincipal As XmlNode In raizProductos
+            Console.WriteLine(nodoPrincipal.Name & vbNewLine)
+            For Each nodoSecundario As XmlNode In nodoPrincipal.ChildNodes
+                Console.WriteLine(nodoSecundario.Name & vbTab & nodoSecundario.InnerText & vbNewLine)
+            Next
 
+        Next
+    End Sub
 End Module

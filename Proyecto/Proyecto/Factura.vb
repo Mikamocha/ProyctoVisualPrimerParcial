@@ -3,6 +3,7 @@
 Public Class Factura
 
     Private _numeroFactura As String
+    Private _mododePago As String
 
 
     Private _estab As String
@@ -121,6 +122,15 @@ Public Class Factura
         End Get
         Set(value As String)
             _numeroFactura = value
+        End Set
+    End Property
+
+    Public Property MododePago As String
+        Get
+            Return _mododePago
+        End Get
+        Set(value As String)
+            _mododePago = value
         End Set
     End Property
 

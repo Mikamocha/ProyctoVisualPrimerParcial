@@ -55,7 +55,10 @@ Public Class Producto
     Public Sub New(codigo As String)
         Me.Codigo = codigo
     End Sub
-
+    Public Sub New(codigo As String, nombre As String)
+        Me.NombreProducto = nombre
+        Me.Codigo = codigo
+    End Sub
     Public Overrides Function tostring() As String
         Return "Codigo: " & Codigo & vbNewLine & "Producto: " & NombreProducto & vbTab & "Precio unitario: " & PrecioUnitario & "   Registra Iva:" & RegistraIva & vbNewLine & "------------------------------------------------------------------ "
     End Function

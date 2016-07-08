@@ -52,6 +52,15 @@ Public Class Almacen_de_Productos
         Next
 
     End Sub
+    Public Function buscarProductosDelAlmacen(nombre As String) As Producto
+        Dim pro As New Producto("Hey no existo", "Hey no existo")
+        For Each producto As Producto In _almacenProductos
+            If String.Compare(producto.NombreProducto, nombre, True) = 0 Then
+                Return producto
+            End If
 
+        Next
+        Return pro
+    End Function
 
 End Class
