@@ -74,6 +74,7 @@ Module Module1
 
                                         End If
                                     Loop Until existeProvincia = True
+                                    Console.WriteLine("#" & "Probando:" & factura.NumeroFactura)
                                     Console.WriteLine("Provincia  existe")
                                     Dim resFactura As Integer
                                     Do
@@ -82,11 +83,13 @@ Module Module1
                                         Console.WriteLine("2.- No")
                                         resFactura = validarDatosnumerico()
                                     Loop Until resFactura > 0 And resFactura < 3
+
                                     If resFactura = 1 Then
                                         facturar = True
                                     Else
                                         facturar = False
                                     End If
+
                                 End While
 
                                 'aqui se creara la factura 
