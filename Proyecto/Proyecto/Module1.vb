@@ -182,7 +182,7 @@ Module Module1
                                 For Each nodo As XmlNode In raizProductos
 
                                     Console.WriteLine("Registrando...")
-                                        nodo.AppendChild(nodos)
+                                    nodo.AppendChild(nodos)
 
                                 Next
                                 'Console.WriteLine("Su producto se ha registrado con exito")
