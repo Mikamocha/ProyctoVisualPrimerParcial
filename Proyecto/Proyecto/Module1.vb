@@ -156,7 +156,7 @@ Module Module1
                             Console.Write("Opcion #:")
                             opcion1 = validarDatosnumerico()
 
-                        Loop Until opcion1 > 0 And opcion1 < 6
+                        Loop Until opcion1 > 0 And opcion1 < 5
                         Dim vendedor As Vendedor
                         Select Case opcion1
                             Case 1
@@ -176,19 +176,49 @@ Module Module1
                                 Dim xmlDocProducto As New XmlDocument()
                                 Dim rutaProdutos As String = "..\..\productos.xml"
                                 Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
-                                xmlDocProducto.Load(rutaProdutos)
                                 Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
                                 Console.WriteLine(producto.tostring())
                                 For Each nodo As XmlNode In raizProductos
-
-                                    Console.WriteLine("Registrando...")
-                                    nodo.AppendChild(nodos)
-
+                                    For Each nodoSecundario In nodo
+                                        Console.WriteLine("Registrando...")
+                                        nodo.AppendChild(nodos)
+                                    Next
                                 Next
                                 'Console.WriteLine("Su producto se ha registrado con exito")
                                 xmlDocProducto.Save(rutaProdutos)
+                                Loop Until opcion1 > 0 And opcion1 < 6
+                                Dim vendedor As Vendedor
+                                Select Case opcion1
+                                    Case 1
+                                        Dim codigo, nombreProducto, registraIva As String
+                                        Dim precioUnitario As Double
+                                        Dim producto As Producto
+                                        Console.Write("codigo    :")
+                                        codigo = Console.ReadLine()
+                                        Console.Write("Producto     :")
+                                        nombreProducto = Console.ReadLine()
+                                        Console.Write("P.Unitario    :")
+                                        precioUnitario = Console.ReadLine()
+                                        Console.Write("Registra IVA     :")
+                                        registraIva = Console.ReadLine()
+                                        producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
+                                        'Console.WriteLine(producto.tostring())
+                                        Dim xmlDocProducto As New XmlDocument()
+                                        Dim rutaProdutos As String = "..\..\productos.xml"
+                                        Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
+                                        xmlDocProducto.Load(rutaProdutos)
+                                        Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
+                                        Console.WriteLine(producto.tostring())
+                                        For Each nodo As XmlNode In raizProductos
 
-                            Case 2
+                                            Console.WriteLine("Registrando...")
+                                            nodo.AppendChild(nodos)
+
+                                        Next
+                                        'Console.WriteLine("Su producto se ha registrado con exito")
+                                        xmlDocProducto.Save(rutaProdutos)
+
+                                    Case 2
                                 Dim nombre, apellido, email, telefono, genero, cedula, id, fechaContrato, contacto As String
                                 Dim edad As Integer
                                 'Dim vendedor As Vendedor
