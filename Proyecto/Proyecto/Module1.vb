@@ -204,7 +204,7 @@ Module Module1
                             Console.Write("Opcion #:")
                             opcion1 = validarDatosnumerico()
 
-                        Loop Until opcion1 > 0 And opcion1 < 5
+                        Loop Until opcion1 > 0 And opcion1 < 6
                         Dim vendedor As Vendedor
 
 
@@ -301,7 +301,7 @@ Module Module1
                             Case 5
                                 Console.WriteLine("Ingrese el nombre que desa consultar")
 
-                                Dim producto As Producto = almacen.Item(0).buscarProductosDelAlmacen
+                                Dim producto As New Producto = almacen.Item(0).buscarProductosDelAlmacen
                                 Console.WriteLine(producto.tostring)
                         End Select
                     End If
