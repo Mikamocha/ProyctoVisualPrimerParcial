@@ -1,4 +1,6 @@
-﻿Public Class Factura
+﻿Imports System.Xml
+
+Public Class Factura
 
     Private _numeroFactura As String
 

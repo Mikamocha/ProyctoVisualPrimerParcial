@@ -7,6 +7,8 @@ Module Module1
     Public path As String = "..\..\usuarios.xml"
     Public xmldoc As New XmlDocument()
     Public raiz As XmlNodeList = xmldoc.GetElementsByTagName("Registro_Usuarios")
+    Dim rutaXML As XmlTextWriter = New XmlTextWriter("factura.xml", System.Text.Encoding.UTF8)
+
     Public numFactura As Integer
     Sub Main()
         Dim seguirMenu As Boolean = True
@@ -80,28 +82,35 @@ Module Module1
                                     'Console.Write("Cedula   :")
                                     'cliente.CedulaIdentidad = Console.ReadLine()
                                     Console.WriteLine("**************   Detalle      ***************")
-                                        Console.Write("Codigo   :")
-                                        codigoProducto = Console.ReadLine()
-                                        leerCodigo(codigoProducto)
+                                    Console.Write("Codigo   :")
+                                    codigoProducto = Console.ReadLine()
+                                    leerCodigo(codigoProducto)
 
+                                    Do
+                                        Console.WriteLine("Provincia    :")
+                                        factura.Provincia = Console.ReadLine()
 
+                                        existeProvincia = validarProvinvicias(factura.Provincia)
+                                        If existeProvincia <> True Then
+                                            Console.Clear()
+                                            Console.WriteLine("Provincia No existe")
 
-
-                                        Do
-                                            Console.WriteLine("Provincia    :")
-                                            factura.Provincia = Console.ReadLine()
-
-                                            existeProvincia = validarProvinvicias(factura.Provincia)
-                                            If existeProvincia <> True Then
-                                                Console.Clear()
-                                                Console.WriteLine("Provincia No existe")
-
-                                            End If
-                                        Loop Until existeProvincia = True
-                                        numFactura = numFactura + 1
+                                        End If
+                                    Loop Until existeProvincia = True
+                                    numFactura = numFactura + 1
                                     factura.NumeroFactura = CStr(numFactura)
-                                    Console.WriteLine("#" & "Probando:" & factura.NumeroFactura)
-                                    Console.WriteLine("Provincia  existe")
+                                    factura.EmpresaFactura.NombreComercial = "Crush Crush"
+                                    Dim iva As Boolean = validarIva(codigoProducto)
+                                    If iva Then
+                                        factura.Impuestos = "14%"
+                                    Else
+
+                                        factura.Impuestos = "0%"
+                                    End If
+                                    Console.WriteLine("Ingrese Nombre del Cliente")
+                                    factura.ClienteComprador.Nombre = Console.ReadLine()
+                                    crearXMLfactura(factura)
+
                                     Dim resFactura As Integer
                                     Do
                                         Console.WriteLine("Desea Ingresar otra factura")
@@ -174,7 +183,7 @@ Module Module1
 
 
                                 Console.Write("codigo    :")
-                                    codigo = Console.ReadLine()
+                                codigo = Console.ReadLine()
 
                                 Console.Write("Producto     :")
                                 nombreProducto = Console.ReadLine()
@@ -502,4 +511,35 @@ Module Module1
         Next
         'Console.WriteLine(codigo & "Nombre: " & nombre & precio)
     End Sub
+
+    Public Sub crearXMLfactura(fac As Factura)
+
+        rutaXML.Formatting = System.Xml.Formatting.Indented
+        rutaXML.WriteStartDocument(False)
+        rutaXML.WriteComment("Esto es un punto XD") 'escribir comentarios
+        rutaXML.WriteStartElement("factura")
+        rutaXML.WriteElementString("codigo", fac.NumeroFactura)
+        rutaXML.WriteElementString("empresa", fac.EmpresaFactura.NombreComercial)
+        rutaXML.WriteElementString("fecha", fac.Fecha)
+        rutaXML.WriteElementString("provincia", fac.Provincia)
+        rutaXML.WriteElementString("cliente", fac.ClienteComprador.Nombre)
+
+        rutaXML.WriteElementString("totalSinImpuestos", fac.TotalSinImpuestos)
+        rutaXML.WriteElementString("totalDescuento", fac.TotalDescuento)
+        rutaXML.WriteElementString("impuestos", fac.Impuestos)
+        rutaXML.WriteElementString("total", fac.Total)
+        rutaXML.WriteEndElement()
+        rutaXML.Flush()
+        rutaXML.Close()
+    End Sub
+
+    Public Function validarIva(codigo As String) As Boolean
+
+        For Each id As Almacen_de_Productos In almacen
+            If id._almacenProductos.Item(0).RegistraIva Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
 End Module
