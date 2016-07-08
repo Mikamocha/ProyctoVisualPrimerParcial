@@ -121,4 +121,18 @@
     <FechaContrato>15/05/2014</FechaContrato>
     <Contacto>Alborada</Contacto>
   </Vendedor>
+  <Vendedor>
+    <Nombre>Karla</Nombre>
+    <Apellido>Pico</Apellido>
+    <Edad>19</Edad>
+    <Email>kpico@hotmail.com</Email>
+    <Telefono>2157489</Telefono>
+    <Genero>Femenino</Genero>
+    <Cedula>0956314785</Cedula>
+    <Usuario>kpico</Usuario>
+    <Contraseña>toala</Contraseña>
+    <Id>1507</Id>
+    <FechaContrato>12/02/2016</FechaContrato>
+    <Contacto>Av.Quito y 9 de Octubre</Contacto>
+  </Vendedor>
 </Registro_Usuarios>

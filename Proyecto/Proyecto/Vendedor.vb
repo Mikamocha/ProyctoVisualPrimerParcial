@@ -75,7 +75,9 @@ Public Class Vendedor
 
 
     Public Overrides Function toString() As String
-        Return MyBase.toString() & "   Id:  " & Id & "    Fecha de contrato:     " & FechaDeContrato & "    Contacto:    " & Contacto
+        Return MyBase.toString() & "    Id:  " & Id & vbLf &
+            "    Fecha de contrato:     " & FechaDeContrato & vbLf &
+            "    Contacto:    " & Contacto
     End Function
 
     Sub New(raiz As XmlNode)

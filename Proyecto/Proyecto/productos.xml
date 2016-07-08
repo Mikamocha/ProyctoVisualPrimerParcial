@@ -779,4 +779,9 @@
     <pUnitario>250</pUnitario>
     <iva>True</iva>
   </producto>
+  <producto codigo="00152">
+    <nombre>Queso Parmezano</nombre>
+    <pUnitario>255</pUnitario>
+    <iva>True</iva>
+  </producto>
 </productos>
