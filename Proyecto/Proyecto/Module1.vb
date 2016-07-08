@@ -66,31 +66,24 @@ Module Module1
                                     Dim cliente As New Cliente
                                     Dim empresa As New Empresa
                                     Dim existeProvincia As Boolean = False
-
-                                    'Console.WriteLine(llenarDatosCabeceraFact())
-
-                                    'Console.Write("Nombre del cliente   :")
-
-                                    'cliente.Nombre = Console.ReadLine()
-                                    'Console.Write("Apellido del cliente  :")
-                                    'cliente.Apellido = Console.ReadLine()
-                                    'Console.Write("Telefono     :")
-                                    'cliente.Telefono = Console.ReadLine()
-                                    'Console.Write("Cedula   :")
-                                    'cliente.CedulaIdentidad = Console.ReadLine()
-                                    Console.WriteLine("**************   Detalle      ***************")
-                                    Dim existeProducto As Boolean = False
                                     Do
+                                        'Console.WriteLine(llenarDatosCabeceraFact())
+
+                                        'Console.Write("Nombre del cliente   :")
+
+                                        'cliente.Nombre = Console.ReadLine()
+                                        'Console.Write("Apellido del cliente  :")
+                                        'cliente.Apellido = Console.ReadLine()
+                                        'Console.Write("Telefono     :")
+                                        'cliente.Telefono = Console.ReadLine()
+                                        'Console.Write("Cedula   :")
+                                        'cliente.CedulaIdentidad = Console.ReadLine()
+                                        Console.WriteLine("**************   Detalle      ***************")
                                         Console.Write("Codigo   :")
                                         codigoProducto = Console.ReadLine()
-                                        existeProducto = validarExistenciaProducto(codigoProducto)
-                                        If existeProducto <> True Then
-                                            Console.Clear()
-                                            Console.WriteLine("Usuario No existe")
-                                            Console.WriteLine("Digite Nuevamente su usuario " & vbNewLine)
-                                        End If
-                                    Loop Until existeProducto = True
-                                    Do
+                                        leerCodigo(codigoProducto)
+
+
                                         Console.WriteLine("Provincia    :")
                                         factura.Provincia = Console.ReadLine()
 
@@ -103,7 +96,8 @@ Module Module1
                                     Loop Until existeProvincia = True
                                     numFactura = numFactura + 1
                                     factura.NumeroFactura = CStr(numFactura)
-
+                                    Console.WriteLine("#" & "Probando:" & factura.NumeroFactura)
+                                    Console.WriteLine("Provincia  existe")
                                     Dim resFactura As Integer
                                     Do
                                         Console.WriteLine("Desea Ingresar otra factura")
@@ -162,15 +156,41 @@ Module Module1
                             Console.Write("Opcion #:")
                             opcion1 = validarDatosnumerico()
 
-                        Loop Until opcion1 > 0 And opcion1 < 6
-
-
+                        Loop Until opcion1 > 0 And opcion1 < 5
                         Dim vendedor As Vendedor
+
+
+
+                        Dim codigo, nombreProducto, registraIva As String
+                        Dim precioUnitario As Double
+                        Dim producto As Producto
+                        Console.Write("codigo    :")
+                        codigo = Console.ReadLine()
+                        Console.Write("Producto     :")
+                        nombreProducto = Console.ReadLine()
+                        Console.Write("P.Unitario    :")
+                        precioUnitario = Console.ReadLine()
+                        Console.Write("Registra IVA     :")
+                        registraIva = Console.ReadLine()
+                        producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
+                        'Console.WriteLine(producto.tostring())
+                        Dim xmlDocProducto As New XmlDocument()
+                        Dim rutaProdutos As String = "..\..\productos.xml"
+                        Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
+                        Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
+                        Console.WriteLine(producto.tostring())
+                        For Each nodo As XmlNode In raizProductos
+                            For Each nodoSecundario In nodo
+                                Console.WriteLine("Registrando...")
+                                nodo.AppendChild(nodos)
+                            Next
+                        Next
+                        'Console.WriteLine("Su producto se ha registrado con exito")
+                        xmlDocProducto.Save(rutaProdutos)
+
                         Select Case opcion1
                             Case 1
-                                Dim codigo, nombreProducto, registraIva As String
-                                Dim precioUnitario As Double
-                                Dim producto As Producto
+
                                 Console.Write("codigo    :")
                                 codigo = Console.ReadLine()
                                 Console.Write("Producto     :")
@@ -181,11 +201,7 @@ Module Module1
                                 registraIva = Console.ReadLine()
                                 producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
                                 'Console.WriteLine(producto.tostring())
-                                Dim xmlDocProducto As New XmlDocument()
-                                Dim rutaProdutos As String = "..\..\productos.xml"
-                                Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
-                                xmlDocProducto.Load(rutaProdutos)
-                                Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
+
                                 Console.WriteLine(producto.tostring())
                                 For Each nodo As XmlNode In raizProductos
 
@@ -226,7 +242,7 @@ Module Module1
                                 Console.Write("Contacto    :")
                                 contacto = Console.ReadLine()
                                 vendedor = New Vendedor(nombre, apellido, edad, email, telefono, genero, cedula, usuario, contraseña, id, fechaContrato, contacto)
-                                Dim nodos As XmlNode = vendedor.agregarVendedor(xmldoc)
+
 
 
                                 For Each nodo As XmlNode In raiz
@@ -263,7 +279,6 @@ Module Module1
             Else
                 seguirMenu = False
                 Console.WriteLine("Adios que tenga un buen dia :)")
-                Console.WriteLine("You make all thing work together for my good :)")
             End If
         End While
 
@@ -449,66 +464,54 @@ Module Module1
         Console.WriteLine(numero)
     End Sub
 
-    ' Public Sub leerCodigo(codigoProducto)
-    'Dim codigo, nombre, precio As String
-    'Dim xmlDocProducto As New XmlDocument()
-    'Dim rutaProdutos As String = "..\..\productos.xml"
-    'Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
-    'Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
-    '   xmlDocProducto.Load(rutaProdutos)
-    'For Each nodoPrincipal As XmlNode In raizProductos
-    '       'Console.WriteLine(nodoPrincipal.InnerText)
-    '      Console.WriteLine("entro2")
-    'For Each nodoHijo As XmlNode In nodoPrincipal.ChildNodes
-    '           'Console.WriteLine(nodoHijo.InnerText)
-    '          Console.WriteLine("entro3")
-    'If nodoHijo.Attributes(0).Name = "codigo" Then
-    '               Console.WriteLine("entro jajaaj")
-    '              codigo = nodoHijo.Attributes(0).InnerText
-    '             Console.WriteLine(nodoHijo.Attributes(0).InnerText)
-    '            Console.WriteLine(codigo)
-    ''Console.WriteLine(nodoHijo.InnerText)
-    '
-    'If codigoProducto = codigo Then
-    '                   Console.WriteLine("entro4")
-    'If nodoHijo.Name = "nombre" Then
-    '                       Console.WriteLine("xfin entro")
-    '                      nombre = nodoHijo.InnerText
-    '                     Console.WriteLine(nodoHijo.InnerText)
-    'End If
-    'If nodoHijo.Name = "pUnitario" Then
-    '                       precio = nodoHijo.InnerText
-    '                      Console.WriteLine(nodoHijo.InnerText)
-    'End If
-    '                   'Select Case nodoHijo.Name
-    '        Case "nombre"
-    '            Console.WriteLine("entro5")
-    '            nombre = nodoHijo.InnerText
-    '        Case "pUnitario"
-    '            precio = nodoHijo.InnerText
-    '    End Select
-    '                  Console.WriteLine(nombre & precio)
-    'End If
+    Public Sub leerCodigo(codigoProducto)
 
+        Console.WriteLine("entro")
+        Dim codigo, nombre, precio As String
+        Dim xmlDocProducto As New XmlDocument()
+        Dim rutaProdutos As String = "..\..\productos.xml"
+        Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
+        Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
+        xmlDocProducto.Load(rutaProdutos)
+        For Each nodoPrincipal As XmlNode In raizProductos
+            'Console.WriteLine(nodoPrincipal.InnerText)
+            Console.WriteLine("entro2")
+            For Each nodoHijo As XmlNode In nodoPrincipal.ChildNodes
+                'Console.WriteLine(nodoHijo.InnerText)
+                Console.WriteLine("entro3")
+                If nodoHijo.Attributes(0).Name = "codigo" Then
+                    Console.WriteLine("entro jajaaj")
+                    codigo = nodoHijo.Attributes(0).InnerText
+                    Console.WriteLine(nodoHijo.Attributes(0).InnerText)
+                    Console.WriteLine(codigo)
+                    'Console.WriteLine(nodoHijo.InnerText)
 
+                    If codigoProducto = codigo Then
+                        Console.WriteLine("entro4")
+                        If nodoHijo.Name = "nombre" Then
+                            Console.WriteLine("xfin entro")
+                            nombre = nodoHijo.InnerText
+                            Console.WriteLine(nodoHijo.InnerText)
+                        End If
+                        If nodoHijo.Name = "pUnitario" Then
+                            precio = nodoHijo.InnerText
+                            Console.WriteLine(nodoHijo.InnerText)
+                        End If
+                        'Select Case nodoHijo.Name
+                        '        Case "nombre"
+                        '            Console.WriteLine("entro5")
+                        '            nombre = nodoHijo.InnerText
+                        '        Case "pUnitario"
+                        '            precio = nodoHijo.InnerText
+                        '    End Select
+                        Console.WriteLine(nombre & precio)
+                    End If
 
-    'End If
-    'Next
-    'Next
-    'Console.WriteLine(codigo & "Nombre: " & nombre & precio)
-    'End Sub
+                    Console.WriteLine("aumentando una linea")
 
-    Public Function validarExistenciaProducto(codigo As String) As Boolean
-        Dim var As Integer = 0 ' 0 no hay ,1 si hay
-        For Each producto As Producto In almacen
-            If producto.Codigo.CompareTo(codigo) Then
-                var = 1
-            End If
+                End If
+            Next
         Next
-        If var = 1 Then
-            Return True
-        Else
-            Return False
-        End If
-    End Function
+        'Console.WriteLine(codigo & "Nombre: " & nombre & precio)
+    End Sub
 End Module

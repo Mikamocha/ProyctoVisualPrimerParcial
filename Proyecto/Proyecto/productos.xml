@@ -779,9 +779,4 @@
     <pUnitario>250</pUnitario>
     <iva>True</iva>
   </producto>
-  <producto codigo="78974">
-    <nombre>Ryskos</nombre>
-    <pUnitario>250</pUnitario>
-    <iva>True</iva>
-  </producto>
 </productos>
