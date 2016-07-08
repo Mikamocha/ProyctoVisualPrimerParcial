@@ -51,6 +51,7 @@ Module Module1
                         End If
 
                     Loop Until existe = True
+                    Console.WriteLine("..........Bienvenido... :")
                     If existe Then
                         Console.Clear()
                         Do
@@ -193,6 +194,7 @@ Module Module1
                     Loop Until existe = True
                     If existe Then
                         Console.Clear()
+                        Console.WriteLine("..........Bienvenido... :")
                         Do
 
                             Console.WriteLine("Escoga una operacion que desee realizar:")
@@ -635,12 +637,13 @@ Module Module1
         Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("facturas")
         Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
         xmlDocProducto.Load(rutaProdutos)
+        Console.WriteLine("--------------------------------------------------------------------------------")
         For Each nodoPrincipal As XmlNode In raizProductos
             Console.WriteLine(nodoPrincipal.Name & vbNewLine)
             For Each nodoSecundario As XmlNode In nodoPrincipal.ChildNodes
                 Console.WriteLine(nodoSecundario.Name & vbTab & nodoSecundario.InnerText & vbNewLine)
             Next
-
+            Console.WriteLine("--------------------------------------------------------------------------------")
         Next
     End Sub
 End Module
