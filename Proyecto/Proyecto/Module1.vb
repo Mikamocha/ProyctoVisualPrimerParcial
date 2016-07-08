@@ -580,9 +580,11 @@ Module Module1
     End Function
     Public Function calcularTotalSinImpuestos(factura As Factura) As Integer
         Dim total As Integer
-        For i As Integer = 0 To factura.detalles.Count Step 1
-            total = total + factura.detalles.Item(i).PrecioUnitario
+        For Each producto As Producto In factura.detalles
+            Console.WriteLine(producto.PrecioUnitario)
+            total = total + producto.PrecioUnitario
         Next
+
         Return total
     End Function
     Public Function calcularImpuestos(factura As Factura) As Integer
