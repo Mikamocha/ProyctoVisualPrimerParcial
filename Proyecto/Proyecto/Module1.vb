@@ -161,36 +161,37 @@ Module Module1
 
 
 
-                        Dim codigo, nombreProducto, registraIva As String
-                        Dim precioUnitario As Double
-                        Dim producto As Producto
-                        Console.Write("codigo    :")
-                        codigo = Console.ReadLine()
-                        Console.Write("Producto     :")
-                        nombreProducto = Console.ReadLine()
-                        Console.Write("P.Unitario    :")
-                        precioUnitario = Console.ReadLine()
-                        Console.Write("Registra IVA     :")
-                        registraIva = Console.ReadLine()
-                        producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
-                        'Console.WriteLine(producto.tostring())
-                        Dim xmlDocProducto As New XmlDocument()
-                        Dim rutaProdutos As String = "..\..\productos.xml"
-                        Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
-                        Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
-                        Console.WriteLine(producto.tostring())
-                        For Each nodo As XmlNode In raizProductos
-                            For Each nodoSecundario In nodo
-                                Console.WriteLine("Registrando...")
-                                nodo.AppendChild(nodos)
-                            Next
-                        Next
-                        'Console.WriteLine("Su producto se ha registrado con exito")
-                        xmlDocProducto.Save(rutaProdutos)
+
+                        'Console.Write("codigo    :")
+                        'codigo = Console.ReadLine()
+                        'Console.Write("Producto     :")
+                        'nombreProducto = Console.ReadLine()
+                        'Console.Write("P.Unitario    :")
+                        'precioUnitario = Console.ReadLine()
+                        'Console.Write("Registra IVA     :")
+                        'registraIva = Console.ReadLine()
+                        'producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
+                        ''Console.WriteLine(producto.tostring())
+                        'Dim xmlDocProducto As New XmlDocument()
+                        'Dim rutaProdutos As String = "..\..\productos.xml"
+                        'Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
+                        'Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
+                        'xmlDocProducto.Load(rutaProdutos)
+
+                        'For Each nodo As XmlNode In raizProductos
+
+                        '    Console.WriteLine("Registrando...")
+                        '        nodo.AppendChild(nodos)
+
+                        'Next
+                        ''Console.WriteLine("Su producto se ha registrado con exito")
+                        'xmlDocProducto.Save(rutaProdutos)
 
                         Select Case opcion1
                             Case 1
-
+                                Dim codigo, nombreProducto, registraIva As String
+                                Dim precioUnitario As Double
+                                Dim producto As Producto
                                 Console.Write("codigo    :")
                                 codigo = Console.ReadLine()
                                 Console.Write("Producto     :")
@@ -201,8 +202,12 @@ Module Module1
                                 registraIva = Console.ReadLine()
                                 producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
                                 'Console.WriteLine(producto.tostring())
+                                Dim xmlDocProducto As New XmlDocument()
+                                Dim rutaProdutos As String = "..\..\productos.xml"
+                                Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
+                                Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
+                                xmlDocProducto.Load(rutaProdutos)
 
-                                Console.WriteLine(producto.tostring())
                                 For Each nodo As XmlNode In raizProductos
 
                                     Console.WriteLine("Registrando...")
@@ -242,7 +247,7 @@ Module Module1
                                 Console.Write("Contacto    :")
                                 contacto = Console.ReadLine()
                                 vendedor = New Vendedor(nombre, apellido, edad, email, telefono, genero, cedula, usuario, contraseña, id, fechaContrato, contacto)
-
+                                Dim nodos As XmlNode = vendedor.agregarVendedor(xmldoc)
 
 
                                 For Each nodo As XmlNode In raiz
