@@ -15,7 +15,6 @@ Module Module1
         crearProvincias()
         leerXmlProductos()
         xmldoc.Load(path)
-
         Dim opcion, opcion1, opcion2 As Integer
         Dim usuario, contraseña As String
         Dim seguir As Boolean = True
@@ -51,9 +50,10 @@ Module Module1
                         End If
 
                     Loop Until existe = True
-                    Console.WriteLine("..........Bienvenido... :")
+                    Console.WriteLine("..........Bienvenido....... :")
                     If existe Then
                         Console.Clear()
+
                         Do
                             Console.WriteLine("Escoga una opcion... :")
                             Console.WriteLine("1.   Nueva Factura")
