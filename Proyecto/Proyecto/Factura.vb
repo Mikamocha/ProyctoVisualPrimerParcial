@@ -1,5 +1,5 @@
 ﻿Public Class Factura
-    Private _id As Integer = 100
+
     Private _numeroFactura As String
 
 
@@ -113,18 +113,17 @@
         End Set
     End Property
 
-
-
-    Public ReadOnly Property NumeroFactura As Integer
+    Public Property NumeroFactura As String
         Get
             Return _numeroFactura
         End Get
-
+        Set(value As String)
+            _numeroFactura = value
+        End Set
     End Property
 
-    Public Sub New(estab As String, ptoEmi As String, secuencial As String, fecha As String, impuestos As String, cliente As Cliente, empresa As Empresa, totalSimImpuestos As Double, total As String, totalDescuento As Double, provincia As String)
-        Me._id = _id + 1
-        Me._numeroFactura = CStr(_id)
+    Public Sub New(numFac As String, estab As String, ptoEmi As String, secuencial As String, fecha As String, impuestos As String, cliente As Cliente, empresa As Empresa, totalSimImpuestos As Double, total As String, totalDescuento As Double, provincia As String)
+        Me.NumeroFactura = numFac
         Me._estab = estab
         Me._ptoEmi = ptoEmi
         Me._secuencial = secuencial

@@ -6,7 +6,7 @@ Module Module1
     Public path As String = "..\..\usuarios.xml"
     Public xmldoc As New XmlDocument()
     Public raiz As XmlNodeList = xmldoc.GetElementsByTagName("Registro_Usuarios")
-
+    Public numFactura As Integer
     Sub Main()
         Dim seguirMenu As Boolean = True
         crearProvincias()
@@ -74,6 +74,8 @@ Module Module1
 
                                         End If
                                     Loop Until existeProvincia = True
+                                    numFactura = numFactura + 1
+                                    factura.NumeroFactura = CStr(numFactura)
                                     Console.WriteLine("#" & "Probando:" & factura.NumeroFactura)
                                     Console.WriteLine("Provincia  existe")
                                     Dim resFactura As Integer
