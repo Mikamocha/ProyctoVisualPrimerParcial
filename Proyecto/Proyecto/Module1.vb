@@ -155,38 +155,10 @@ Module Module1
                             Console.Write("Opcion #:")
                             opcion1 = validarDatosnumerico()
 
-                        Loop Until opcion1 > 0 And opcion1 < 5
+                        Loop Until opcion1 > 0 And opcion1 < 6
+
+
                         Dim vendedor As Vendedor
-                        Select Case opcion1
-                            Case 1
-                                Dim codigo, nombreProducto, registraIva As String
-                                Dim precioUnitario As Double
-                                Dim producto As Producto
-                                Console.Write("codigo    :")
-                                codigo = Console.ReadLine()
-                                Console.Write("Producto     :")
-                                nombreProducto = Console.ReadLine()
-                                Console.Write("P.Unitario    :")
-                                precioUnitario = Console.ReadLine()
-                                Console.Write("Registra IVA     :")
-                                registraIva = Console.ReadLine()
-                                producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
-                                'Console.WriteLine(producto.tostring())
-                                Dim xmlDocProducto As New XmlDocument()
-                                Dim rutaProdutos As String = "..\..\productos.xml"
-                                Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
-                                Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
-                                Console.WriteLine(producto.tostring())
-                                For Each nodo As XmlNode In raizProductos
-                                    For Each nodoSecundario In nodo
-                                        Console.WriteLine("Registrando...")
-                                        nodo.AppendChild(nodos)
-                                    Next
-                                Next
-                                'Console.WriteLine("Su producto se ha registrado con exito")
-                                xmlDocProducto.Save(rutaProdutos)
-                                Loop Until opcion1 > 0 And opcion1 < 6
-                                Dim vendedor As Vendedor
                                 Select Case opcion1
                                     Case 1
                                         Dim codigo, nombreProducto, registraIva As String
@@ -218,56 +190,56 @@ Module Module1
                                         xmlDocProducto.Save(rutaProdutos)
 
                                     Case 2
-                                Dim nombre, apellido, email, telefono, genero, cedula, id, fechaContrato, contacto As String
-                                Dim edad As Integer
-                                'Dim vendedor As Vendedor
-                                Console.WriteLine("A continuacion digite los datos del vendedor a registrar")
-                                Console.Write("Nombre    :")
-                                nombre = Console.ReadLine()
-                                Console.Write("Apellido    :")
-                                apellido = Console.ReadLine()
-                                Console.Write("Edad    :")
-                                edad = Console.ReadLine()
-                                Console.Write("Email    :")
-                                email = Console.ReadLine()
-                                Console.Write("Telefono   :")
-                                telefono = Console.ReadLine()
-                                Console.Write(" Genero    :")
-                                genero = Console.ReadLine()
-                                Console.Write("Cedula    :")
-                                cedula = Console.ReadLine()
-                                Console.Write("Usuario    :")
-                                usuario = Console.ReadLine()
-                                Console.Write("Contraseña    :")
-                                contraseña = Console.ReadLine()
-                                Console.Write("Id    :")
-                                id = Console.ReadLine()
-                                Console.Write("Fecha de Contrato    :")
-                                fechaContrato = Console.ReadLine()
-                                Console.Write("Contacto    :")
-                                contacto = Console.ReadLine()
-                                vendedor = New Vendedor(nombre, apellido, edad, email, telefono, genero, cedula, usuario, contraseña, id, fechaContrato, contacto)
-                                Dim nodos As XmlNode = vendedor.agregarVendedor(xmldoc)
+                                        Dim nombre, apellido, email, telefono, genero, cedula, id, fechaContrato, contacto As String
+                                        Dim edad As Integer
+                                        'Dim vendedor As Vendedor
+                                        Console.WriteLine("A continuacion digite los datos del vendedor a registrar")
+                                        Console.Write("Nombre    :")
+                                        nombre = Console.ReadLine()
+                                        Console.Write("Apellido    :")
+                                        apellido = Console.ReadLine()
+                                        Console.Write("Edad    :")
+                                        edad = Console.ReadLine()
+                                        Console.Write("Email    :")
+                                        email = Console.ReadLine()
+                                        Console.Write("Telefono   :")
+                                        telefono = Console.ReadLine()
+                                        Console.Write(" Genero    :")
+                                        genero = Console.ReadLine()
+                                        Console.Write("Cedula    :")
+                                        cedula = Console.ReadLine()
+                                        Console.Write("Usuario    :")
+                                        usuario = Console.ReadLine()
+                                        Console.Write("Contraseña    :")
+                                        contraseña = Console.ReadLine()
+                                        Console.Write("Id    :")
+                                        id = Console.ReadLine()
+                                        Console.Write("Fecha de Contrato    :")
+                                        fechaContrato = Console.ReadLine()
+                                        Console.Write("Contacto    :")
+                                        contacto = Console.ReadLine()
+                                        vendedor = New Vendedor(nombre, apellido, edad, email, telefono, genero, cedula, usuario, contraseña, id, fechaContrato, contacto)
+                                        Dim nodos As XmlNode = vendedor.agregarVendedor(xmldoc)
 
 
-                                For Each nodo As XmlNode In raiz
-                                    Console.WriteLine("Registrando...")
-                                    nodo.AppendChild(nodos)
-                                Next
-                                Console.WriteLine("El nuevo vendedor fue agregado con exito")
-                                xmldoc.Save(path)
-                            Case 3
-                                'leer xml y listar todos los vendedores
-                                Dim nvendedor As Vendedor = New Vendedor(raiz.Item(0))
+                                        For Each nodo As XmlNode In raiz
+                                            Console.WriteLine("Registrando...")
+                                            nodo.AppendChild(nodos)
+                                        Next
+                                        Console.WriteLine("El nuevo vendedor fue agregado con exito")
+                                        xmldoc.Save(path)
+                                    Case 3
+                                        'leer xml y listar todos los vendedores
+                                        Dim nvendedor As Vendedor = New Vendedor(raiz.Item(0))
 
-                            Case 4
-                                For i As Integer = 0 To almacen.Count Step 1
-                                    almacen.Item(i).mostrarProductosDelAlmacen()
-                                    i = i + 1
-                                Next
+                                    Case 4
+                                        For i As Integer = 0 To almacen.Count Step 1
+                                            almacen.Item(i).mostrarProductosDelAlmacen()
+                                            i = i + 1
+                                        Next
 
 
-                        End Select
+                                End Select
                     End If
 
 
