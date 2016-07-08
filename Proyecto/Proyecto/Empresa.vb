@@ -39,8 +39,18 @@
         End Set
     End Property
 
+    Public Sub New(razonSocial As String, ruc As String, direccion As String)
+        Me.RazonSocial = razonSocial
+        Me.Ruc = ruc
+        Me.DirMatriz = direccion
+    End Sub
+
+    Public Sub New()
+
+    End Sub
 
     Overrides Function tostring() As String
-        Return "Empresa:" & vbTab + Me.RazonSocial & vbTab & " RUC: " + Me.Ruc
+        Return "Empresa:" & vbTab + Me.RazonSocial & vbTab & " RUC: " + Me.Ruc & vbTab &
+                " Direccion Matriz: " + Me.DirMatriz
     End Function
 End Class
