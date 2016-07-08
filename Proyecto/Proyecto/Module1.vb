@@ -1,5 +1,6 @@
 ﻿Imports System.Xml
 Module Module1
+    Public totalFacturas As Integer = 0
     Public almacen As New ArrayList()
     Public provincias As New ArrayList()
     Public ind As Integer = 0
@@ -8,7 +9,7 @@ Module Module1
     Public xmldoc As New XmlDocument()
     Public raiz As XmlNodeList = xmldoc.GetElementsByTagName("Registro_Usuarios")
     Dim rutaXML As XmlTextWriter = New XmlTextWriter("factura.xml", System.Text.Encoding.UTF8)
-
+    Public contadordeFacturas As Integer = 0
     Public numFactura As Integer
     Sub Main()
         Dim seguirMenu As Boolean = True
@@ -60,9 +61,10 @@ Module Module1
                             Console.WriteLine("2.   Salir")
                             Console.Write("Opcion:     ")
                             opcion2 = validarDatosnumerico()
-                        Loop Until opcion2 > 0 And opcion1 < 2
+                        Loop Until opcion2 > 0 And opcion2 < 2
                         Select Case opcion2
                             Case 1
+                                contadordeFacturas = contadordeFacturas + 1
                                 crearXMLfactura()
                                 Dim contadorfacturas As Integer = 0
                                 Dim seguirLLenandofactura As Boolean = True
@@ -165,7 +167,7 @@ Module Module1
                                     End If
 
                                 End While
-                                leerFactura()
+
 
                             Case 2
                                 FileClose()
@@ -203,10 +205,11 @@ Module Module1
                             Console.WriteLine("3.   Mostrar lista de vendedores ")
                             Console.WriteLine("4.   Mostrar lista de Productos ")
                             Console.WriteLine("5.   Buscar Producto")
+                            Console.WriteLine("6.   Mostrar Inventario")
                             Console.Write("Opcion #:")
                             opcion1 = validarDatosnumerico()
 
-                        Loop Until opcion1 > 0 And opcion1 < 6
+                        Loop Until opcion1 > 0 And opcion1 < 7
                         Dim vendedor As Vendedor
 
 
@@ -306,6 +309,9 @@ Module Module1
                                 Dim producto As New Producto()
                                 producto = almacen.Item(0).buscarProductosDelAlmacen(var)
                                 Console.WriteLine(producto.tostring)
+                            Case 6
+                                leerFactura()
+                                mostrarInventario()
                         End Select
                     End If
 
@@ -632,18 +638,30 @@ Module Module1
 
     End Function
     Public Sub leerFactura()
-        Dim xmlDocProducto As New XmlDocument()
-        Dim rutaProdutos As String = "factura.xml"
-        Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("facturas")
-        Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
-        xmlDocProducto.Load(rutaProdutos)
-        Console.WriteLine("--------------------------------------------------------------------------------")
-        For Each nodoPrincipal As XmlNode In raizProductos
-            Console.WriteLine(nodoPrincipal.Name & vbNewLine)
-            For Each nodoSecundario As XmlNode In nodoPrincipal.ChildNodes
-                Console.WriteLine(nodoSecundario.Name & vbTab & nodoSecundario.InnerText & vbNewLine)
-            Next
+        If contadordeFacturas > 0 Then
+            Dim xmlDocProducto As New XmlDocument()
+            Dim rutaProdutos As String = "factura.xml"
+            Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("facturas")
+            Dim reader As XmlTextReader = New XmlTextReader(rutaProdutos)
+            xmlDocProducto.Load(rutaProdutos)
             Console.WriteLine("--------------------------------------------------------------------------------")
-        Next
+            For Each nodoPrincipal As XmlNode In raizProductos
+                Console.WriteLine(nodoPrincipal.Name & vbNewLine)
+                For Each nodoSecundario As XmlNode In nodoPrincipal.ChildNodes
+                    Console.WriteLine(nodoSecundario.Name & vbTab & nodoSecundario.InnerText & vbNewLine)
+                    If (nodoSecundario.Name = "total") Then
+                        totalFacturas = totalFacturas + nodoSecundario.InnerText
+                    End If
+                Next
+                Console.WriteLine("--------------------------------------------------------------------------------")
+            Next
+
+        Else
+            Console.WriteLine("No existen facturas para presentar")
+        End If
+    End Sub
+
+    Public Sub mostrarInventario()
+        Console.WriteLine("El total de facturas es:" & totalFacturas)
     End Sub
 End Module
