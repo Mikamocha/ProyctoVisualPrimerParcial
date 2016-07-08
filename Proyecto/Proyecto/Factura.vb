@@ -1,13 +1,8 @@
 ﻿Public Class Factura
-    Private _numero As String
-    Public Property Numero() As String
-        Get
-            Return _numero
-        End Get
-        Set(value As String)
-            _numero = value
-        End Set
-    End Property
+
+    Private _numeroFactura As String
+
+
     Private _estab As String
     Public Property Establecimiento() As String
         Get
@@ -118,8 +113,17 @@
         End Set
     End Property
 
-    Public Sub New(numero As String, estab As String, ptoEmi As String, secuencial As String, fecha As String, impuestos As String, cliente As Cliente, empresa As Empresa, totalSimImpuestos As Double, total As String, totalDescuento As Double, provincia As String)
-        Me._numero = numero
+    Public Property NumeroFactura As String
+        Get
+            Return _numeroFactura
+        End Get
+        Set(value As String)
+            _numeroFactura = value
+        End Set
+    End Property
+
+    Public Sub New(numFac As String, estab As String, ptoEmi As String, secuencial As String, fecha As String, impuestos As String, cliente As Cliente, empresa As Empresa, totalSimImpuestos As Double, total As String, totalDescuento As Double, provincia As String)
+        Me.NumeroFactura = numFac
         Me._estab = estab
         Me._ptoEmi = ptoEmi
         Me._secuencial = secuencial
