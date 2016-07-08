@@ -64,7 +64,7 @@ Public Class Factura
             _total = value
         End Set
     End Property
-    Public detalles As ArrayList
+    Public detalles As New ArrayList()
 
     Private _empresa As Empresa
     Public Property EmpresaFactura() As Empresa

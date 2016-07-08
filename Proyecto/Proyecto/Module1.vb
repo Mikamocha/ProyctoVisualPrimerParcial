@@ -62,39 +62,91 @@ Module Module1
                         Loop Until opcion2 > 0 And opcion1 < 2
                         Select Case opcion2
                             Case 1
-                                Dim codigo, nombreProducto, registraIva As String
-                                Dim precioUnitario As Double
-                                Dim producto As New Producto()
+                                crearXMLfactura()
+                                Dim contadorfacturas As Integer = 0
+                                Dim seguirLLenandofactura As Boolean = True
+                                While seguirLLenandofactura
+                                    Dim codigo As String
+                                    Dim factura As New Factura()
+                                    Dim cliente As New Cliente()
+                                    Console.WriteLine("Escriba el Nombre del Cliente")
+                                    cliente.Nombre = Console.ReadLine()
+                                    Console.WriteLine("Escriba el Nombre del Apellido")
+                                    cliente.Apellido = Console.ReadLine()
+                                    factura.NumeroFactura = contadorfacturas + 1
+                                    factura.EmpresaFactura = llenarDatosCabeceraFact()
+                                    factura.ClienteComprador = cliente
+                                    Dim thisDate As Date
+                                    thisDate = Today
+                                    factura.Fecha = Today.ToString
+                                    Dim existeProvincia As Boolean = False
+                                         Do
+                                 Console.WriteLine("Ingrese Provincia")
+                                        factura.Provincia = Console.ReadLine()
+                                        existeProvincia = validarProvinvicias(factura.Provincia)
+                                        Console.WriteLine(validarProvinvicias(factura.Provincia))
+                                        If existeProvincia <> True Then
+                                            Console.Clear()
+                                            Console.WriteLine("Provincia No existe")
+
+                                    End If
+                                    Loop Until existeProvincia = True
+                                    Dim ingresarProductos As Boolean = True
+                                    While ingresarProductos
+                                        Dim producto As New Producto()
+                                        Dim existeProducto As Boolean = False
+                                        Do
+
+                                            Console.Write("codigo  de Producto  :")
+                                            codigo = Console.ReadLine()
+                                            existeProducto = validarProductos(codigo)
+                                            If existeProducto <> True Then
+                                                Console.WriteLine("Producto No Existe")
+                                                Console.WriteLine("Por favor Ingrese un codigo valido ")
+                                            End If
+
+                                        Loop Until existeProducto = True
+
+                                        producto = llenarDatosProdcuto(codigo)
+                                        Console.WriteLine(producto.NombreProducto)
+                                        factura.detalles.Add(producto)
+                                        Dim seguirllenandoProdcutos As Integer
+                                        Do
+                                            Console.WriteLine("Desea Ingresar como otro Producto")
+                                            Console.WriteLine("1.- Si")
+                                            Console.WriteLine("2.- No")
+                                            seguirllenandoProdcutos = validarDatosnumerico()
+                                        Loop Until seguirllenandoProdcutos > 0 And seguirllenandoProdcutos < 3
+                                        If seguirllenandoProdcutos = 1 Then
+                                            ingresarProductos = True
+                                        Else
+                                            ingresarProductos = False
+                                        End If
+                                    End While
+                                    factura.TotalSinImpuestos = calcularTotalSinImpuestos(factura)
+                                    factura.Impuestos = calcularImpuestos(factura)
+                                    factura.Total = calculartotal(factura)
+                                    guardarXmlFactura(factura)
+                                    Dim res As Integer = 0
+                                    Do
+                                        Console.WriteLine("Desea Ingresar como otra Factura")
+                                        Console.WriteLine("1.- Si")
+                                        Console.WriteLine("2.- No")
+                                        res = validarDatosnumerico()
+                                    Loop Until res > 0 And res < 3
+                                    If res = 1 Then
+                                        seguirLLenandofactura = True
 
 
-                                Console.Write("codigo    :")
-                                codigo = Console.ReadLine()
+                                    Else
+                                        seguirLLenandofactura = False
 
-                                Console.Write("Producto     :")
-                                nombreProducto = Console.ReadLine()
-                                Console.Write("P.Unitario    :")
-                                precioUnitario = Console.ReadLine()
-                                Console.Write("Registra IVA     :")
-                                registraIva = Console.ReadLine()
-                                producto = New Producto(codigo, nombreProducto, precioUnitario, registraIva)
-                                'Console.WriteLine(producto.tostring())
+                                        rutaXML.Flush()
+                                        rutaXML.Close()
+                                    End If
 
+                                End While
 
-                                'Console.WriteLine(producto.tostring())
-                                Dim xmlDocProducto As New XmlDocument()
-                                Dim rutaProdutos As String = "..\..\productos.xml"
-                                Dim raizProductos As XmlNodeList = xmlDocProducto.GetElementsByTagName("productos")
-                                'Console.WriteLine(producto.tostring())
-                                Dim nodos As XmlNode = producto.agregarProducto(xmlDocProducto)
-
-                                For Each nodo As XmlNode In raizProductos
-
-                                    Console.WriteLine("Registrando...")
-                                    nodo.AppendChild(nodos)
-
-                                Next
-                                'Console.WriteLine("Su producto se ha registrado con exito")
-                                xmlDocProducto.Save(rutaProdutos)
 
                             Case 2
                                 FileClose()
@@ -145,11 +197,17 @@ Module Module1
                                 Dim codigo, nombreProducto, registraIva As String
                                 Dim precioUnitario As Double
                                 Dim producto As New Producto()
+                                Dim existeProducto = True
+                                Do
+                                    Console.Write("codigo    :")
+                                    codigo = Console.ReadLine()
+                                    existeProducto = validarProductos(codigo)
+                                    If existeProducto Then
+                                        Console.WriteLine("Producto  Existe")
+                                        Console.WriteLine("Por favor Ingrese un codigo valido ")
+                                    End If
 
-
-                                Console.Write("codigo    :")
-                                codigo = Console.ReadLine()
-
+                                Loop Until existeProducto = False
                                 Console.Write("Producto     :")
                                 nombreProducto = Console.ReadLine()
                                 Console.Write("P.Unitario    :")
@@ -391,12 +449,12 @@ Module Module1
     End Function
 
     Public Function llenarDatosCabeceraFact() As Empresa
-        Dim empresa As Empresa
-        'empresa.NombreComercial = "Tienda de Viveres K&Y"
+
+        Dim nombre As String = "Tienda de Viveres K&Y"
         Dim RazonSocial As String = "Tienda de Viveres K&Y"
         Dim DirMatriz As String = "Av.Olmedo y Chimborazo"
         Dim Ruc As String = "0923849501"
-        empresa = New Empresa(RazonSocial, Ruc, DirMatriz)
+        Dim empresa As New Empresa(nombre, RazonSocial, Ruc, DirMatriz)
         Return empresa
         'Dim factura As New Factura
         'factura.NumeroFactura = generarNumeroFactura()
@@ -452,37 +510,101 @@ Module Module1
             Next
         Next
     End Sub
-    Public Sub crearXMLfactura(fac As Factura)
+    Public Sub crearXMLfactura()
 
         rutaXML.Formatting = System.Xml.Formatting.Indented
         rutaXML.WriteStartDocument(False)
-        rutaXML.WriteComment("Esto es un punto XD") 'escribir comentarios
+        rutaXML.WriteStartElement("facturas")
+    End Sub
+    Public Sub guardarXmlFactura(fac As Factura)
         rutaXML.WriteStartElement("factura")
         rutaXML.WriteElementString("codigo", fac.NumeroFactura)
         rutaXML.WriteElementString("empresa", fac.EmpresaFactura.NombreComercial)
         rutaXML.WriteElementString("fecha", fac.Fecha)
         rutaXML.WriteElementString("provincia", fac.Provincia)
-        rutaXML.WriteElementString("clienteNombre", fac.ClienteComprador.Nombre)
-        rutaXML.WriteElementString("clienteApellido", fac.ClienteComprador.Apellido)
+        rutaXML.WriteElementString("cliente", fac.ClienteComprador.Nombre & " " & fac.ClienteComprador.Apellido)
+
+
+        Dim contador As Integer = 1
+        For Each producto As Producto In fac.detalles
+            contador = contador + 1
+            rutaXML.WriteElementString("productoCodigo" & CStr(contador), producto.Codigo)
+            rutaXML.WriteElementString("productoNombre" & CStr(contador), producto.NombreProducto)
+        Next
         rutaXML.WriteElementString("totalSinImpuestos", fac.TotalSinImpuestos)
-        rutaXML.WriteElementString("totalDescuento", fac.TotalDescuento)
+            rutaXML.WriteElementString("totalDescuento", fac.TotalDescuento)
         rutaXML.WriteElementString("impuestos", fac.Impuestos)
         rutaXML.WriteElementString("total", fac.Total)
         rutaXML.WriteEndElement()
-        rutaXML.Flush()
-        rutaXML.Close()
+        Console.WriteLine(vbNewLine & "Se ha guardado un XML si desea visualizarlo ubiquese en el bin\Debug de esta carpeta")
     End Sub
+    Public Function llenarDatosProdcuto(codigo As String) As Producto
+        Dim prod As New Producto(codigo)
+        For Each p As Almacen_de_Productos In almacen
+            For Each producto As Producto In p._almacenProductos
+                If String.Compare(producto.Codigo, codigo, True) = 0 Then
+                    prod.NombreProducto = producto.NombreProducto
+                    prod.PrecioUnitario = producto.PrecioUnitario
+                    prod.Codigo = producto.Codigo
+                    prod.RegistraIva = prod.RegistraIva
+                    Return prod
+                End If
+            Next
+        Next
+
+        Return prod
+    End Function
 
 
-
+    Public Function validarProductos(codigo As String) As Boolean
+        For Each p As Almacen_de_Productos In almacen
+            For Each producto As Producto In p._almacenProductos
+                If String.Compare(producto.Codigo, codigo, True) = 0 Then
+                    Console.WriteLine(producto.NombreProducto)
+                    Return True
+                End If
+            Next
+        Next
+        Return False
+    End Function
 
     Public Function validarIva(codigo As String) As Boolean
 
         For Each id As Almacen_de_Productos In almacen
             If id._almacenProductos.Item(0).RegistraIva Then
+
                 Return True
             End If
         Next
         Return False
     End Function
+    Public Function calcularTotalSinImpuestos(factura As Factura) As Integer
+        Dim total As Integer
+        For i As Integer = 0 To factura.detalles.Count Step 1
+            total = total + factura.detalles.Item(i).PrecioUnitario
+        Next
+        Return total
+    End Function
+    Public Function calcularImpuestos(factura As Factura) As Integer
+        Dim total As Integer
+        For i As Integer = 0 To factura.detalles.Count Step 1
+            If String.Compare(factura.Provincia, provincias.Item(8), True) = 0 Then
+                Return 0
+            End If
+            If String.Compare(factura.Provincia, provincias.Item(14), True) = 0 Then
+                Return 0
+            End If
+
+            Return factura.TotalSinImpuestos * 0.14
+            total = total + factura.detalles.Item(i).PrecioUnitario
+        Next
+        Return total
+    End Function
+    Public Function calculartotal(factura As Factura) As Integer
+
+
+        Return factura.TotalSinImpuestos + CDbl(factura.Impuestos) + CDbl(factura.TotalDescuento)
+
+    End Function
+
 End Module

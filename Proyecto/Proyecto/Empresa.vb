@@ -39,7 +39,8 @@
         End Set
     End Property
 
-    Public Sub New(razonSocial As String, ruc As String, direccion As String)
+    Public Sub New(nombrecomercial As String, razonSocial As String, ruc As String, direccion As String)
+        Me.NombreComercial = nombrecomercial
         Me.RazonSocial = razonSocial
         Me.Ruc = ruc
         Me.DirMatriz = direccion

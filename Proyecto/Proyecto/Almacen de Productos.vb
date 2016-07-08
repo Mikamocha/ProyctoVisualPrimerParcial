@@ -3,15 +3,23 @@
 Public Class Almacen_de_Productos
     Public _almacenProductos As New ArrayList()
     Public indice As Integer = 0
-    Private value As String
+    Private _val As String
 
+    Public Property Val As String
+        Get
+            Return _val
+        End Get
+        Set(value As String)
+            _val = value
+        End Set
+    End Property
 
     Public Sub New()
 
     End Sub
 
     Public Sub New(value As String)
-        Me.value = value
+        Me.Val = value
     End Sub
 
     Public Sub añadirProductos(producto As XmlNode)
@@ -44,4 +52,6 @@ Public Class Almacen_de_Productos
         Next
 
     End Sub
+
+
 End Class
