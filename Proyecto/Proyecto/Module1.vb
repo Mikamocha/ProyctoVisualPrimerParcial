@@ -76,8 +76,7 @@ Module Module1
                                     Loop Until existeProvincia = True
                                     numFactura = numFactura + 1
                                     factura.NumeroFactura = CStr(numFactura)
-                                    Console.WriteLine("#" & "Probando:" & factura.NumeroFactura)
-                                    Console.WriteLine("Provincia  existe")
+
                                     Dim resFactura As Integer
                                     Do
                                         Console.WriteLine("Desea Ingresar otra factura")
