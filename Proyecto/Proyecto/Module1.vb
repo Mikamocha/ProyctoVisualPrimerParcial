@@ -300,8 +300,9 @@ Module Module1
                                 Next
                             Case 5
                                 Console.WriteLine("Ingrese el nombre que desa consultar")
-
-                                Dim producto As New Producto = almacen.Item(0).buscarProductosDelAlmacen
+                                Dim var As String = Console.ReadLine()
+                                Dim producto As New Producto()
+                                producto = almacen.Item(0).buscarProductosDelAlmacen(var)
                                 Console.WriteLine(producto.tostring)
                         End Select
                     End If
