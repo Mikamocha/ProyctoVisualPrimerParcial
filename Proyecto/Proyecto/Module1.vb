@@ -256,6 +256,7 @@ Module Module1
             Else
                 seguirMenu = False
                 Console.WriteLine("Adios que tenga un buen dia :)")
+                Console.WriteLine("You make all thing work together for my good :)")
             End If
         End While
 
@@ -442,7 +443,7 @@ Module Module1
     End Sub
 
     Public Sub leerCodigo(codigoProducto)
-
+        Console.WriteLine("hi")
         Console.WriteLine("entro")
         Dim codigo, nombre, precio As String
         Dim xmlDocProducto As New XmlDocument()
